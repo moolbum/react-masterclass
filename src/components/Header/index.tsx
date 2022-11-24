@@ -1,21 +1,30 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../contexts/theme";
 
 function Header() {
   const { onChangeTheme } = useContext(ThemeContext);
+  const navigate = useNavigate();
+
+  const onHomeClick = () => {
+    navigate("/");
+  };
+
+  const onAboutClick = () => {
+    navigate("/about");
+  };
 
   return (
     <header>
       <ul>
         <li>
-          <Link to={"/"}>Home</Link>
+          <button onClick={onHomeClick}>Home</button>
         </li>
         <li>
-          <Link to={"/about"}>Abount</Link>
+          <button onClick={onAboutClick}>Abount</button>
         </li>
         <button type="button" onClick={onChangeTheme}>
-          Button
+          DarkMode
         </button>
       </ul>
     </header>
