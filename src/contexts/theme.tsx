@@ -8,7 +8,7 @@ const defaultValue = {
   onChangeTheme: () => {},
 };
 
-export const ThemeContext = createContext<typeof defaultValue>(defaultValue);
+const ThemeContext = createContext<typeof defaultValue>(defaultValue);
 
 function ThemeProvider({ children }: PropsWithChildren) {
   const themeProps = useTheme();
@@ -24,4 +24,4 @@ function ThemeProvider({ children }: PropsWithChildren) {
   );
 }
 
-export default ThemeProvider;
+export { ThemeProvider, ThemeContext };
