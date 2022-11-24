@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from "react";
+import styled from "styled-components";
+import { ThemeContext } from "./contexts/theme";
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: ${({ theme }) => theme.backgroundColor};
+`;
+
+const Title = styled.h1`
+  color: ${({ theme }) => theme.textColor};
+`;
+
+const Button = styled.button``;
 
 function App() {
+  const { onChangeTheme } = useContext(ThemeContext);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper>
+      <Title>Hello</Title>
+      <Button onClick={onChangeTheme}>Button</Button>
+    </Wrapper>
   );
 }
 
