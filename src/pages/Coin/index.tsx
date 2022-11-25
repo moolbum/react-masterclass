@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Typo from "../../components/atoms/Typo";
 
 interface CoinInterface {
   id: string;
@@ -37,8 +38,8 @@ const CoinItem = styled.li`
   background: ${({ theme }) => theme.backgroundColorReversal};
 
   img {
-    width: 24px;
-    height: 24px;
+    width: 25px;
+    height: 25px;
   }
 
   a {
@@ -84,8 +85,6 @@ function Coin() {
     })();
   }, []);
 
-  console.log("coins>>>>>", coins);
-
   return (
     <Container>
       <Header>
@@ -101,7 +100,9 @@ function Coin() {
                     src={`https://coinicons-api.vercel.app/api/icon/${symbol.toLocaleLowerCase()}`}
                     alt="coin-icon"
                   />
-                  {name} ({symbol}) &rarr;
+                  <Typo size="b4">
+                    {name} ({symbol}) &rarr;
+                  </Typo>
                 </Link>
               </CoinItem>
             );

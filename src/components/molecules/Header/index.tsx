@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ThemeContext } from "../../contexts/theme";
+import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "../../../contexts/theme";
 
 function Header() {
   const { onChangeTheme } = useContext(ThemeContext);
