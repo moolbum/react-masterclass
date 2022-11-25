@@ -1,6 +1,8 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Abount from "../pages/About";
+import Coin from "../pages/Coin";
+import CoinDetail from "../pages/CoinDetail";
 import ErrorComponent from "../pages/ErrorComponent";
 import Home from "../pages/Home";
 import NotFound from "../pages/NotFound";
@@ -21,6 +23,14 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <Abount />,
+      },
+      {
+        path: "coin",
+        element: <Coin />,
+      },
+      {
+        path: "coin/:name",
+        element: <CoinDetail />,
       },
       {
         path: "users/:id",

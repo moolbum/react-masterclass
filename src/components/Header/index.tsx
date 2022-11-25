@@ -6,22 +6,21 @@ function Header() {
   const { onChangeTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
 
-  const onHomeClick = () => {
-    navigate("/");
-  };
-
-  const onAboutClick = () => {
-    navigate("/about");
+  const goToPage = (url: string) => {
+    navigate(url);
   };
 
   return (
     <header>
       <ul>
         <li>
-          <button onClick={onHomeClick}>Home</button>
+          <button onClick={() => goToPage("/")}>Home</button>
         </li>
         <li>
-          <button onClick={onAboutClick}>Abount</button>
+          <button onClick={() => goToPage("/about")}>Abount</button>
+        </li>
+        <li>
+          <button onClick={() => goToPage("/coin")}>Coin</button>
         </li>
         <button type="button" onClick={onChangeTheme}>
           DarkMode
