@@ -36,9 +36,16 @@ const CoinItem = styled.li`
   border-radius: 15px;
   background: ${({ theme }) => theme.backgroundColorReversal};
 
+  img {
+    width: 24px;
+    height: 24px;
+  }
+
   a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     padding: 20px;
-    display: block;
     transition: color 0.3s ease-in;
   }
 
@@ -77,6 +84,8 @@ function Coin() {
     })();
   }, []);
 
+  console.log("coins>>>>>", coins);
+
   return (
     <Container>
       <Header>
@@ -88,6 +97,10 @@ function Coin() {
             return (
               <CoinItem key={id}>
                 <Link to={id}>
+                  <img
+                    src={`https://coinicons-api.vercel.app/api/icon/${symbol.toLocaleLowerCase()}`}
+                    alt="coin-icon"
+                  />
                   {name} ({symbol}) &rarr;
                 </Link>
               </CoinItem>
