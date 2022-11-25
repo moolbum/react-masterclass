@@ -20,12 +20,23 @@ const CoinItemList = styled.ul`
 `;
 
 const CoinItem = styled.li`
-  padding: 20px;
   border-radius: 15px;
   background: ${({ theme }) => theme.backgroundColorReversal};
 
+  a {
+    padding: 20px;
+    display: block;
+    transition: color 0.3s ease-in;
+  }
+
   & > a {
     color: ${({ theme }) => theme.textColorReversal};
+  }
+
+  &:hover {
+    a {
+      color: ${({ theme }) => theme.accentColor};
+    }
   }
 `;
 
@@ -83,7 +94,7 @@ function Coin() {
         {coins.map(({ id, name, symbol }) => {
           return (
             <CoinItem key={id}>
-              <Link to={name}>
+              <Link to={id}>
                 {name} ({symbol}) &rarr;
               </Link>
             </CoinItem>
