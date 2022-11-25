@@ -40,12 +40,12 @@ const CoinItem = styled.li`
   img {
     width: 25px;
     height: 25px;
+    margin-right: 10px;
   }
 
   a {
     display: flex;
     align-items: center;
-    gap: 8px;
     padding: 20px;
     transition: color 0.3s ease-in;
   }
