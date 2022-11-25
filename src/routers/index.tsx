@@ -30,6 +30,10 @@ const router = createBrowserRouter([
             path: "followers",
             element: <Follower />,
           },
+          {
+            path: "followeing",
+            element: <Follower />,
+          },
         ],
       },
     ],
