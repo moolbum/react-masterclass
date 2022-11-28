@@ -13,27 +13,27 @@ interface CoinInterface {
   type: string;
 }
 
-const Container = styled.div`
+export const Container = styled.div`
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
   padding: 0px 20px;
 `;
 
-const Header = styled.header`
+export const Header = styled.header`
   height: 15vh;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-const CoinItemList = styled.ul`
+export const CoinItemList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 10px;
 `;
 
-const CoinItem = styled.li`
+export const CoinItem = styled.li`
   border-radius: 15px;
   background: ${({ theme }) => theme.backgroundColorReversal};
 
@@ -61,7 +61,7 @@ const CoinItem = styled.li`
   }
 `;
 
-const Title = styled.h1`
+export const Title = styled.h1`
   font-size: 42px;
   color: ${({ theme }) => theme.accentColor};
 `;
@@ -95,7 +95,7 @@ function Coin() {
           {coins.map(({ id, name, symbol }) => {
             return (
               <CoinItem key={id}>
-                <Link to={id}>
+                <Link to={id} state={{ name: id }}>
                   <img
                     src={`https://coinicons-api.vercel.app/api/icon/${symbol.toLocaleLowerCase()}`}
                     alt="coin-icon"

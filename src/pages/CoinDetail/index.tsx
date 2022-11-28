@@ -1,10 +1,20 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
+import Typo from "../../components/atoms/Typo";
+import { Container, Header, Title } from "../Coin";
 
 function CoinDetail() {
-  const { id } = useParams();
+  const { state } = useLocation();
+  const [loading, setLoading] = useState(false);
 
-  return <div>CoinDetail {id}</div>;
+  return (
+    <Container>
+      <Header>
+        <Title>{state.name || "Loading..."}</Title>
+      </Header>
+      {!loading ? "...loading" : "...loading"}
+    </Container>
+  );
 }
 
 export default CoinDetail;
