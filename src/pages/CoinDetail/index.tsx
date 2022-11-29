@@ -113,9 +113,7 @@ function CoinDetail() {
     <Container>
       <Header>
         <Title>
-          <Typo size="h1">
-            {id ? id : !loading ? info?.name : "Loading..."}
-          </Typo>
+          <Typo size="h1">{!loading ? info?.name : "Loading..."}</Typo>
         </Title>
       </Header>
       {!loading
@@ -151,6 +149,7 @@ function CoinDetail() {
                   </li>
                 </ul>
               </Section>
+              
               <Link to="chart">Chart</Link>
               <Link to="price">Price</Link>
               <Outlet />
