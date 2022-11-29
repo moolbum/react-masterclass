@@ -88,7 +88,9 @@ function Coin() {
   return (
     <Container>
       <Header>
-        <Title>Coin</Title>
+        <Title>
+          <Typo size="h1">Coin</Typo>
+        </Title>
       </Header>
       {!loading ? (
         <CoinItemList>

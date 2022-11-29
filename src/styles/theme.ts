@@ -5,7 +5,7 @@ const darkTheme = {
   textColorReversal: "#2f3640",
   backgroundColor: "#2f3640",
   backgroundColorReversal: "#f5f6fa",
-  accentColor: "#44bd32",
+  accentColor: "#0071e3",
 };
 
 const lightTheme = {
@@ -13,7 +13,7 @@ const lightTheme = {
   textColorReversal: "#f5f6fa",
   backgroundColor: "#f5f6fa",
   backgroundColorReversal: "#2f3640",
-  accentColor: "#44bd32",
+  accentColor: "#0071e3",
 };
 
 export { darkTheme, lightTheme };

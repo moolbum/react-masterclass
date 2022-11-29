@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import styled from "styled-components";
+import Typo from "../../components/atoms/Typo";
 import { Container, Header, Title } from "../Coin";
 
 interface InfoData {
@@ -63,6 +65,24 @@ interface RouteState {
   };
 }
 
+const Section = styled.section`
+  margin: 20px 0;
+  padding: 10px 15px;
+  color: ${({ theme }) => theme.textColorReversal};
+  background: ${({ theme }) => theme.backgroundColorReversal};
+  border-radius: 8px;
+
+  ul {
+    display: flex;
+    justify-content: space-between;
+
+    li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+`;
 
 function CoinDetail() {
   const { state } = useLocation() as RouteState;
@@ -98,9 +118,46 @@ function CoinDetail() {
   return (
     <Container>
       <Header>
-        <Title>{state.name || "Loading..."}</Title>
+        <Title>
+          <Typo size="h1">{info?.name || "Loading..."}</Typo>
+        </Title>
       </Header>
-      {!loading ? info && <div>test</div> : "...loading"}
+      {!loading
+        ? info &&
+          price && (
+            <main>
+              <Section>
+                <ul>
+                  <li>
+                    <Typo size="h6">RANK:</Typo>{" "}
+                    <Typo size="b4">{price.rank}</Typo>
+                  </li>
+                  <li>
+                    <Typo size="h6">SYMBOL:</Typo>{" "}
+                    <Typo size="b4">${info.symbol}</Typo>
+                  </li>
+                  <li>
+                    <Typo size="h6">OPEN SOURCE:</Typo>
+                    <Typo size="b4">{info.open_source ? "Yes" : false}</Typo>
+                  </li>
+                </ul>
+              </Section>
+              <Typo>{info.description}</Typo>
+              <Section>
+                <ul>
+                  <li>
+                    <Typo size="h6">TOTAL SUPPLY:</Typo>
+                    <Typo size="b4">{price.total_supply}</Typo>
+                  </li>
+                  <li>
+                    <Typo size="h6">MAX SUPPLY:</Typo>
+                    <Typo size="b4">{price.max_supply}</Typo>
+                  </li>
+                </ul>
+              </Section>
+            </main>
+          )
+        : "...loading"}
     </Container>
   );
 }
