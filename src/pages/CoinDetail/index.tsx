@@ -62,6 +62,7 @@ interface PriceData {
 interface RouteState {
   state: {
     name: string;
+    id: string;
   };
 }
 
@@ -95,11 +96,11 @@ function CoinDetail() {
       setLoading(true);
       try {
         const infoData = await (
-          await fetch(`https://api.coinpaprika.com/v1/coins/${state.name}`)
+          await fetch(`https://api.coinpaprika.com/v1/coins/${state.id}`)
         ).json();
 
         const priceData = await (
-          await fetch(`https://api.coinpaprika.com/v1/tickers/${state.name}`)
+          await fetch(`https://api.coinpaprika.com/v1/tickers/${state.id}`)
         ).json();
 
         setInfo(infoData);
@@ -114,12 +115,15 @@ function CoinDetail() {
 
   console.log("infoData>>>>", info);
   console.log("priceData>>>>", price);
+  console.log("state>>>>", state);
 
   return (
     <Container>
       <Header>
         <Title>
-          <Typo size="h1">{info?.name || "Loading..."}</Typo>
+          <Typo size="h1">
+            {state?.name ? state?.name : !loading ? info?.name : "Loading..."}
+          </Typo>
         </Title>
       </Header>
       {!loading
@@ -129,15 +133,15 @@ function CoinDetail() {
               <Section>
                 <ul>
                   <li>
-                    <Typo size="h6">RANK:</Typo>{" "}
+                    <Typo size="h10">RANK:</Typo>{" "}
                     <Typo size="b4">{price.rank}</Typo>
                   </li>
                   <li>
-                    <Typo size="h6">SYMBOL:</Typo>{" "}
+                    <Typo size="h10">SYMBOL:</Typo>{" "}
                     <Typo size="b4">${info.symbol}</Typo>
                   </li>
                   <li>
-                    <Typo size="h6">OPEN SOURCE:</Typo>
+                    <Typo size="h10">OPEN SOURCE:</Typo>
                     <Typo size="b4">{info.open_source ? "Yes" : false}</Typo>
                   </li>
                 </ul>
@@ -146,11 +150,11 @@ function CoinDetail() {
               <Section>
                 <ul>
                   <li>
-                    <Typo size="h6">TOTAL SUPPLY:</Typo>
+                    <Typo size="h10">TOTAL SUPPLY:</Typo>
                     <Typo size="b4">{price.total_supply}</Typo>
                   </li>
                   <li>
-                    <Typo size="h6">MAX SUPPLY:</Typo>
+                    <Typo size="h10">MAX SUPPLY:</Typo>
                     <Typo size="b4">{price.max_supply}</Typo>
                   </li>
                 </ul>

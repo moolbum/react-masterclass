@@ -97,7 +97,7 @@ function Coin() {
           {coins.map(({ id, name, symbol }) => {
             return (
               <CoinItem key={id}>
-                <Link to={id} state={{ name: id }}>
+                <Link to={id} state={{ name, id }}>
                   <img
                     src={`https://coinicons-api.vercel.app/api/icon/${symbol.toLocaleLowerCase()}`}
                     alt="coin-icon"
