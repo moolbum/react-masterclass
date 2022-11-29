@@ -3,6 +3,8 @@ import { createBrowserRouter } from "react-router-dom";
 import Abount from "../pages/About";
 import Coin from "../pages/Coin";
 import CoinDetail from "../pages/CoinDetail";
+import Chart from "../pages/CoinDetail/chart";
+import Price from "../pages/CoinDetail/price";
 import ErrorComponent from "../pages/ErrorComponent";
 import Home from "../pages/Home";
 import NotFound from "../pages/NotFound";
@@ -31,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "coin/:id",
         element: <CoinDetail />,
+        children: [
+          { path: "chart", element: <Chart /> },
+          { path: "price", element: <Price /> },
+        ],
       },
       {
         path: "users/:id",

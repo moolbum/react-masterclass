@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Typo from "../../components/atoms/Typo";
 import { Container, Header, Title } from "../Coin";
 
-interface InfoData {
+export interface InfoData {
   id: string;
   name: string;
   symbol: string;
@@ -26,7 +26,7 @@ interface InfoData {
   last_data_at: string;
 }
 
-interface PriceData {
+export interface PriceData {
   id: string;
   name: string;
   symbol: string;
@@ -59,13 +59,6 @@ interface PriceData {
     };
   };
 }
-interface RouteState {
-  state: {
-    name: string;
-    id: string;
-  };
-}
-
 const Section = styled.section`
   margin: 20px 0;
   padding: 10px 15px;
@@ -86,7 +79,7 @@ const Section = styled.section`
 `;
 
 function CoinDetail() {
-  const { state } = useLocation() as RouteState;
+  const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState<InfoData>();
   const [price, setPrice] = useState<PriceData>();
@@ -96,11 +89,11 @@ function CoinDetail() {
       setLoading(true);
       try {
         const infoData = await (
-          await fetch(`https://api.coinpaprika.com/v1/coins/${state.id}`)
+          await fetch(`https://api.coinpaprika.com/v1/coins/${id}`)
         ).json();
 
         const priceData = await (
-          await fetch(`https://api.coinpaprika.com/v1/tickers/${state.id}`)
+          await fetch(`https://api.coinpaprika.com/v1/tickers/${id}`)
         ).json();
 
         setInfo(infoData);
@@ -111,18 +104,17 @@ function CoinDetail() {
         setLoading(false);
       }
     })();
-  }, [state.name]);
+  }, [id]);
 
   console.log("infoData>>>>", info);
   console.log("priceData>>>>", price);
-  console.log("state>>>>", state);
 
   return (
     <Container>
       <Header>
         <Title>
           <Typo size="h1">
-            {state?.name ? state?.name : !loading ? info?.name : "Loading..."}
+            {id ? id : !loading ? info?.name : "Loading..."}
           </Typo>
         </Title>
       </Header>
@@ -159,6 +151,9 @@ function CoinDetail() {
                   </li>
                 </ul>
               </Section>
+              <Link to="chart">Chart</Link>
+              <Link to="price">Price</Link>
+              <Outlet />
             </main>
           )
         : "...loading"}
