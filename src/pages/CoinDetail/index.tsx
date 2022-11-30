@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Typo from "../../components/atoms/Typo";
 import { Container, Header, Title } from "../Coin";
@@ -59,6 +59,13 @@ export interface PriceData {
     };
   };
 }
+interface RouteState {
+  state: {
+    name: string;
+    id: string;
+  };
+}
+
 const Section = styled.section`
   margin: 20px 0;
   padding: 10px 15px;
@@ -78,7 +85,25 @@ const Section = styled.section`
   }
 `;
 
+const LinkContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+
+  a {
+    display: block;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+    color: ${({ theme }) => theme.textColorReversal};
+    background: ${({ theme }) => theme.backgroundColorReversal};
+  }
+`;
+
 function CoinDetail() {
+  const { state } = useLocation() as RouteState;
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState<InfoData>();
@@ -113,7 +138,9 @@ function CoinDetail() {
     <Container>
       <Header>
         <Title>
-          <Typo size="h1">{!loading ? info?.name : "Loading..."}</Typo>
+          <Typo size="h1">
+            {state?.name ? state?.name : !loading ? info?.name : "Loading..."}
+          </Typo>
         </Title>
       </Header>
       {!loading
@@ -137,6 +164,7 @@ function CoinDetail() {
                 </ul>
               </Section>
               <Typo>{info.description}</Typo>
+
               <Section>
                 <ul>
                   <li>
@@ -149,9 +177,17 @@ function CoinDetail() {
                   </li>
                 </ul>
               </Section>
-              
-              <Link to="chart">Chart</Link>
-              <Link to="price">Price</Link>
+
+              <LinkContainer>
+                <Link to="chart">
+                  <Typo size="h10">CHART</Typo>
+                </Link>
+
+                <Link to="price">
+                  <Typo size="h10">PRICE</Typo>
+                </Link>
+              </LinkContainer>
+
               <Outlet />
             </main>
           )
