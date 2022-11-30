@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useMatch,
+  useParams,
+} from "react-router-dom";
 import styled from "styled-components";
 import Typo from "../../components/atoms/Typo";
 import { Container, Header, Title } from "../Coin";
@@ -108,6 +114,9 @@ function CoinDetail() {
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState<InfoData>();
   const [price, setPrice] = useState<PriceData>();
+  const chartMatch = useMatch("/:id/chart");
+
+  console.log("chartMatch>>>>>>", chartMatch);
 
   useEffect(() => {
     (async () => {
