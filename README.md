@@ -16,7 +16,7 @@
 
 ```
 - Task : React.js, TypeScript, Prettier, ESLint
-- State : React-Query, Axios
+- State : React-Query, Recoil, Axios
 - style : Styled-components
 - Build : Create React App
 - Other : ApexChart, React-icons
