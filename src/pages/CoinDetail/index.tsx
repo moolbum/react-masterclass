@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import {
   Link,
   Outlet,
@@ -65,96 +66,87 @@ const Tab = styled.div<{ isActive: PathPattern<string> | null }>`
 function CoinDetail() {
   const { state } = useLocation() as RouteState;
   const { id } = useParams();
-  const [loading, setLoading] = useState(false);
-  const [info, setInfo] = useState<InfoData>();
-  const [price, setPrice] = useState<PriceData>();
 
   const chartMatch = useMatch(`/coin/${id}/chart`);
   const priceMatch = useMatch(`/coin/${id}/price`);
 
-  useEffect(() => {
-    (async () => {
-      if (!id) return;
+  const coinInfo = useQuery<InfoData>(["coinInfo", id], () =>
+    getCoinInfo(`${id}`)
+  );
 
-      setLoading(true);
-      try {
-        const infoData = await getCoinInfo(id);
-        const priceData = await getCoinPrice(id);
-
-        setInfo(infoData);
-        setPrice(priceData);
-      } catch (e) {
-        console.log(e);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [id]);
+  const coinPrice = useQuery<PriceData>(["coinPrice", id], () =>
+    getCoinPrice(`${id}`)
+  );
 
   return (
     <Container>
       <Header>
         <Title>
           <Typo size="h1">
-            {state?.name ? state?.name : !loading ? info?.name : "Loading..."}
+            {state?.name
+              ? state?.name
+              : coinInfo.isLoading
+              ? "Loading..."
+              : coinInfo.data?.name}
           </Typo>
         </Title>
       </Header>
-      {!loading
-        ? info &&
-          price && (
-            <main>
-              <Section>
-                <ul>
-                  <li>
-                    <Typo size="h10">RANK:</Typo>{" "}
-                    <Typo size="b4">{price.rank}</Typo>
-                  </li>
-                  <li>
-                    <Typo size="h10">SYMBOL:</Typo>{" "}
-                    <Typo size="b4">${info.symbol}</Typo>
-                  </li>
-                  <li>
-                    <Typo size="h10">OPEN SOURCE:</Typo>
-                    <Typo size="b4">{info.open_source ? "Yes" : false}</Typo>
-                  </li>
-                </ul>
-              </Section>
-              <Typo>{info.description}</Typo>
+      {coinInfo.isLoading && coinPrice.isLoading ? (
+        "Loading..."
+      ) : (
+        <main>
+          <Section>
+            <ul>
+              <li>
+                <Typo size="h10">RANK:</Typo>{" "}
+                <Typo size="b4">{coinPrice.data?.rank}</Typo>
+              </li>
+              <li>
+                <Typo size="h10">SYMBOL:</Typo>{" "}
+                <Typo size="b4">${coinInfo.data?.symbol}</Typo>
+              </li>
+              <li>
+                <Typo size="h10">OPEN SOURCE:</Typo>
+                <Typo size="b4">
+                  {coinInfo.data?.open_source ? "Yes" : false}
+                </Typo>
+              </li>
+            </ul>
+          </Section>
+          <Typo>{coinInfo.data?.description}</Typo>
 
-              <Section>
-                <ul>
-                  <li>
-                    <Typo size="h10">TOTAL SUPPLY:</Typo>
-                    <Typo size="b4">{price.total_supply}</Typo>
-                  </li>
-                  <li>
-                    <Typo size="h10">MAX SUPPLY:</Typo>
-                    <Typo size="b4">{price.max_supply}</Typo>
-                  </li>
-                </ul>
-              </Section>
+          <Section>
+            <ul>
+              <li>
+                <Typo size="h10">TOTAL SUPPLY:</Typo>
+                <Typo size="b4">{coinPrice.data?.total_supply}</Typo>
+              </li>
+              <li>
+                <Typo size="h10">MAX SUPPLY:</Typo>
+                <Typo size="b4">{coinPrice.data?.max_supply}</Typo>
+              </li>
+            </ul>
+          </Section>
+        </main>
+      )}
 
-              <TabContainer>
-                <Tab isActive={chartMatch ? chartMatch.pattern : null}>
-                  <Link to="chart">
-                    <Typo size="h10">CHART</Typo>
-                  </Link>
-                </Tab>
+      <TabContainer>
+        <Tab isActive={chartMatch ? chartMatch.pattern : null}>
+          <Link to="chart">
+            <Typo size="h10">CHART</Typo>
+          </Link>
+        </Tab>
 
-                <Tab isActive={priceMatch ? priceMatch.pattern : null}>
-                  <Link to="price">
-                    <Typo size="h10">PRICE</Typo>
-                  </Link>
-                </Tab>
-              </TabContainer>
+        <Tab isActive={priceMatch ? priceMatch.pattern : null}>
+          <Link to="price">
+            <Typo size="h10">PRICE</Typo>
+          </Link>
+        </Tab>
+      </TabContainer>
 
-              <TabLayout>
-                <Outlet />
-              </TabLayout>
-            </main>
-          )
-        : "...loading"}
+      <TabLayout>
+        <Outlet />
+      </TabLayout>
     </Container>
   );
 }

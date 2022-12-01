@@ -1,18 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { getCoinList } from "../../apis/coin";
 import Typo from "../../components/atoms/Typo";
-
-interface CoinInterface {
-  id: string;
-  name: string;
-  symbol: string;
-  rank: number;
-  is_new: boolean;
-  is_active: boolean;
-  type: string;
-}
+import { CoinInterface } from "../../interface/coin";
 
 export const Container = styled.div`
   width: 100%;
@@ -68,22 +60,13 @@ export const Title = styled.h1`
 `;
 
 function Coin() {
-  const [coins, setCoins] = useState<CoinInterface[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      try {
-        const res = await getCoinList();
-        setCoins(res.slice(0, 100));
-      } catch (e) {
-        console.log(e);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
+  const { isLoading, data } = useQuery<CoinInterface[]>(
+    "coinList",
+    getCoinList,
+    {
+      select: (data) => data.slice(0, 30),
+    }
+  );
 
   return (
     <Container>
@@ -92,9 +75,11 @@ function Coin() {
           <Typo size="h1">Coin</Typo>
         </Title>
       </Header>
-      {!loading ? (
+      {isLoading ? (
+        "...loading"
+      ) : (
         <CoinItemList>
-          {coins.map(({ id, name, symbol }) => {
+          {data?.map(({ id, name, symbol }) => {
             return (
               <CoinItem key={id}>
                 <Link to={id} state={{ name, id }}>
@@ -110,8 +95,6 @@ function Coin() {
             );
           })}
         </CoinItemList>
-      ) : (
-        "...loading"
       )}
     </Container>
   );
