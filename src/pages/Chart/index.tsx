@@ -60,7 +60,6 @@ function Chart() {
             },
             fill: {
               type: "gradient",
-              gradient: { gradientToColors: ["#7cff92"], stops: [0, 100] },
             },
             colors: [lightTheme.accentColor],
             tooltip: {

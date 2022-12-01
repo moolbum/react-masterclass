@@ -111,7 +111,7 @@ function CoinDetail() {
               </li>
               <li>
                 <Typo size="h10">OPEN SOURCE:</Typo>
-                <Typo size="b4">{infoData?.open_source ? "Yes" : false}</Typo>
+                <Typo size="b4">${priceData?.quotes.USD.price.toFixed(2)}</Typo>
               </li>
             </ul>
           </Section>
