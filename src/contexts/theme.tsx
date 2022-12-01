@@ -4,7 +4,7 @@ import useTheme from "../hooks/useTheme";
 import { darkTheme, lightTheme } from "../styles/theme";
 
 const defaultValue = {
-  theme: "lightTheme",
+  theme: "darkTheme",
   onChangeTheme: () => {},
 };
 
@@ -16,7 +16,7 @@ function ThemeProvider({ children }: PropsWithChildren) {
   return (
     <ThemeContext.Provider value={themeProps}>
       <StyledThemeProvider
-        theme={themeProps.theme === "lightTheme" ? lightTheme : darkTheme}
+        theme={themeProps.theme === "darkTheme" ? darkTheme : lightTheme}
       >
         {children}
       </StyledThemeProvider>

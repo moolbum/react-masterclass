@@ -7,6 +7,7 @@ import routers from "./routers";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { AxiosError } from "axios";
+import { RecoilRoot } from "recoil";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,14 +21,20 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-root.render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <GlobalStyle />
-        <RouterProvider router={routers} />
-        <ReactQueryDevtools initialIsOpen />
-      </ThemeProvider>
-    </QueryClientProvider>
-  </React.StrictMode>
-);
+function App() {
+  return (
+    <React.StrictMode>
+      <RecoilRoot>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider>
+            <GlobalStyle />
+            <RouterProvider router={routers} />
+            <ReactQueryDevtools initialIsOpen />
+          </ThemeProvider>
+        </QueryClientProvider>
+      </RecoilRoot>
+    </React.StrictMode>
+  );
+}
+
+root.render(<App />);
