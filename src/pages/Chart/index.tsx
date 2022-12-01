@@ -22,11 +22,15 @@ function Chart() {
         "...Loading Chart"
       ) : (
         <ApexChart
-          type="line"
+          type="candlestick"
           series={[
             {
-              name: "Price",
-              data: data ? data.map(({ close }) => Number(close)) : [],
+              data: data
+                ? data?.map((item) => ({
+                    x: item.time_close,
+                    y: [item.open, item.high, item.low, item.close],
+                  }))
+                : [],
             },
           ]}
           options={{
@@ -41,7 +45,7 @@ function Chart() {
             },
             stroke: {
               curve: "smooth",
-              width: 4,
+              width: 1,
             },
             yaxis: {
               show: false,
