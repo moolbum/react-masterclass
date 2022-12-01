@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { getCoinList } from "../../apis/coin";
 import Typo from "../../components/atoms/Typo";
 
 interface CoinInterface {
@@ -74,9 +75,8 @@ function Coin() {
     (async () => {
       setLoading(true);
       try {
-        const res = await fetch("https://api.coinpaprika.com/v1/coins");
-        const json = await res.json();
-        setCoins(json.slice(0, 100));
+        const res = await getCoinList();
+        setCoins(res.slice(0, 100));
       } catch (e) {
         console.log(e);
       } finally {

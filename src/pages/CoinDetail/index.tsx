@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import {
   Link,
   Outlet,
+  PathPattern,
   useLocation,
   useMatch,
   useParams,
 } from "react-router-dom";
 import styled from "styled-components";
+import { getCoinInfo, getCoinPrice } from "../../apis/coin";
 import Typo from "../../components/atoms/Typo";
+import TabLayout from "../../components/molecules/TabLayout";
 import { InfoData, PriceData } from "../../interface/coin";
 import { Container, Header, Title } from "../Coin";
 
@@ -45,17 +48,18 @@ const TabContainer = styled.div`
 
   a {
     display: block;
-
     padding: 10px;
     text-align: center;
-    border-radius: 8px;
-    color: ${({ theme }) => theme.textColorReversal};
-    background: ${({ theme }) => theme.backgroundColorReversal};
   }
 `;
 
-const Tab = styled.div`
+const Tab = styled.div<{ isActive: PathPattern<string> | null }>`
   width: 100%;
+  border-radius: 8px;
+  color: ${({ theme, isActive }) =>
+    isActive ? theme.white : theme.textColorReversal};
+  background: ${({ theme, isActive }) =>
+    isActive ? theme.accentColor : theme.backgroundColorReversal};
 `;
 
 function CoinDetail() {
@@ -70,15 +74,12 @@ function CoinDetail() {
 
   useEffect(() => {
     (async () => {
+      if (!id) return;
+
       setLoading(true);
       try {
-        const infoData = await (
-          await fetch(`https://api.coinpaprika.com/v1/coins/${id}`)
-        ).json();
-
-        const priceData = await (
-          await fetch(`https://api.coinpaprika.com/v1/tickers/${id}`)
-        ).json();
+        const infoData = await getCoinInfo(id);
+        const priceData = await getCoinPrice(id);
 
         setInfo(infoData);
         setPrice(priceData);
@@ -89,12 +90,6 @@ function CoinDetail() {
       }
     })();
   }, [id]);
-
-  console.log("chartMatch>>>>>>", chartMatch);
-  console.log("priceMatch>>>>>>", priceMatch);
-
-  // console.log("infoData>>>>", info);
-  // console.log("priceData>>>>", price);
 
   return (
     <Container>
@@ -141,19 +136,22 @@ function CoinDetail() {
               </Section>
 
               <TabContainer>
-                <Tab>
+                <Tab isActive={chartMatch ? chartMatch.pattern : null}>
                   <Link to="chart">
                     <Typo size="h10">CHART</Typo>
                   </Link>
                 </Tab>
-                <Tab>
+
+                <Tab isActive={priceMatch ? priceMatch.pattern : null}>
                   <Link to="price">
                     <Typo size="h10">PRICE</Typo>
                   </Link>
                 </Tab>
               </TabContainer>
 
-              <Outlet />
+              <TabLayout>
+                <Outlet />
+              </TabLayout>
             </main>
           )
         : "...loading"}
