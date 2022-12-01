@@ -6,7 +6,7 @@
 - React Router v6
   - createBrowserRouter 적용
   - Outlet 적용
-- Recoil 적용
+- Recoil 다크모드 적용
 
 배포주소 https://react-masterclass-eta.vercel.app/
 
