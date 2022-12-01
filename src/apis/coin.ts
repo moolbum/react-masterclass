@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from "./constants";
+import { BASE_URL, COIN_HISTORY_URL } from "./constants";
 
 export const getCoinList = async () => {
   const res = await axios(`${BASE_URL}/coins`);
@@ -19,8 +19,11 @@ export const getCoinPrice = async (id: string) => {
 };
 
 export const getCoinHistory = async (id: string) => {
+  const endDate = Math.floor(Date.now() / 1000); // 현재 시간 -> 초
+  const startDate = endDate - 60 * 60 * 24 * 7 * 1; // 현재 시간 - 1주일// 현재 시간 - 1주일
+
   const res = await axios(
-    `https://ohlcv-api.nomadcoders.workers.dev?coinId=${id}`
+    `${COIN_HISTORY_URL}?coinId=${id}&start=${startDate}&end=${endDate}`
   );
 
   return res.data;

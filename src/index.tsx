@@ -26,7 +26,7 @@ root.render(
       <ThemeProvider>
         <GlobalStyle />
         <RouterProvider router={routers} />
-        <ReactQueryDevtools initialIsOpen={false} />
+        <ReactQueryDevtools initialIsOpen />
       </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>
