@@ -5,7 +5,7 @@ import GlobalStyle from "./styles/GlobalStyle";
 import { RouterProvider } from "react-router-dom";
 import routers from "./routers";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+// import { ReactQueryDevtools } from "react-query/devtools";
 import { AxiosError } from "axios";
 
 const queryClient = new QueryClient({
@@ -26,7 +26,7 @@ root.render(
       <ThemeProvider>
         <GlobalStyle />
         <RouterProvider router={routers} />
-        <ReactQueryDevtools initialIsOpen />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>

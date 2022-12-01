@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useQuery } from "react-query";
 import {
   Link,
@@ -80,6 +80,8 @@ function CoinDetail() {
     () => getCoinPrice(`${id}`)
   );
 
+  const loading = infoLoading || priceLoading;
+
   return (
     <Container>
       <Header>
@@ -93,7 +95,7 @@ function CoinDetail() {
           </Typo>
         </Title>
       </Header>
-      {infoLoading && priceLoading ? (
+      {loading ? (
         "Loading..."
       ) : (
         <main>
