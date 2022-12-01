@@ -7,6 +7,7 @@ import {
   PathPattern,
   useLocation,
   useMatch,
+  useNavigate,
   useParams,
 } from "react-router-dom";
 import styled from "styled-components";
@@ -16,6 +17,8 @@ import TabLayout from "../../components/molecules/TabLayout";
 import { InfoData, PriceData } from "../../interface/coin";
 import { Container, Header, Title } from "../Coin";
 import { coinSection, tab } from "./constants";
+import { HiArrowLeft } from "react-icons/hi2";
+import Button from "../../components/atoms/Button";
 
 interface RouteState {
   state: {
@@ -23,6 +26,24 @@ interface RouteState {
     id: string;
   };
 }
+
+const TitleContainer = styled(Title)`
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .title-container {
+    position: absolute;
+    left: 0;
+  }
+`;
+
+const ButtonIcon = styled(HiArrowLeft)`
+  color: ${({ theme }) => theme.accentColor};
+  font-size: 20px;
+`;
 
 const Section = styled.section`
   margin: 20px 0;
@@ -68,6 +89,7 @@ const Tab = styled.div<{ isActive: PathPattern<string> | null }>`
 function CoinDetail() {
   const { state } = useLocation() as RouteState;
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const chartMatch = useMatch(`/coin/${id}/chart`);
   const priceMatch = useMatch(`/coin/${id}/price`);
@@ -85,6 +107,10 @@ function CoinDetail() {
 
   const loading = infoLoading || priceLoading;
 
+  const goToListPage = () => {
+    navigate("/coin");
+  };
+
   return (
     <Container>
       <Helmet>
@@ -98,7 +124,10 @@ function CoinDetail() {
       </Helmet>
 
       <Header>
-        <Title>
+        <TitleContainer>
+          <Button onClick={goToListPage} className="title-container">
+            <ButtonIcon />
+          </Button>
           <Typo size="h1">
             {state?.name
               ? state?.name
@@ -106,7 +135,7 @@ function CoinDetail() {
               ? "Loading..."
               : infoData?.name}
           </Typo>
-        </Title>
+        </TitleContainer>
       </Header>
       {loading ? (
         "Loading..."
