@@ -19,7 +19,7 @@
 - State : React-Query, Axios
 - style : Styled-components
 - Build : Create React App
-- Other : ApexChart, Prettier
+- Other : ApexChart, Prettier, React-helmet
 ```
 
 <br>

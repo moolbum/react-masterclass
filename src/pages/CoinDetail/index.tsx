@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import {
   Link,
@@ -86,6 +87,16 @@ function CoinDetail() {
 
   return (
     <Container>
+      <Helmet>
+        <title>
+          {state?.name
+            ? state?.name
+            : infoLoading
+            ? "Loading..."
+            : infoData?.name}
+        </title>
+      </Helmet>
+
       <Header>
         <Title>
           <Typo size="h1">
