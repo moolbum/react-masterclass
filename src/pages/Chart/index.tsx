@@ -13,7 +13,10 @@ function Chart() {
 
   const { isLoading, data } = useQuery<CoinHistory[]>(
     ["coinHistoy", coinId],
-    () => getCoinHistory(`${coinId}`)
+    () => getCoinHistory(`${coinId}`),
+    {
+      refetchInterval: 10000,
+    }
   );
 
   return (

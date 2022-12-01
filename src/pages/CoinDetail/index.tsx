@@ -14,6 +14,7 @@ import Typo from "../../components/atoms/Typo";
 import TabLayout from "../../components/molecules/TabLayout";
 import { InfoData, PriceData } from "../../interface/coin";
 import { Container, Header, Title } from "../Coin";
+import { coinSection, tab } from "./constants";
 
 interface RouteState {
   state: {
@@ -77,7 +78,8 @@ function CoinDetail() {
 
   const { isLoading: priceLoading, data: priceData } = useQuery<PriceData>(
     ["coinPrice", id],
-    () => getCoinPrice(`${id}`)
+    () => getCoinPrice(`${id}`),
+    { refetchInterval: 5000 }
   );
 
   const loading = infoLoading || priceLoading;
@@ -102,15 +104,15 @@ function CoinDetail() {
           <Section>
             <ul>
               <li>
-                <Typo size="h10">RANK:</Typo>{" "}
+                <Typo size="h10">{coinSection.RANK}</Typo>{" "}
                 <Typo size="b4">{priceData?.rank}</Typo>
               </li>
               <li>
-                <Typo size="h10">SYMBOL:</Typo>{" "}
+                <Typo size="h10">{coinSection.SYMBOL}</Typo>{" "}
                 <Typo size="b4">${infoData?.symbol}</Typo>
               </li>
               <li>
-                <Typo size="h10">OPEN SOURCE:</Typo>
+                <Typo size="h10">{coinSection.PRICE}</Typo>
                 <Typo size="b4">${priceData?.quotes.USD.price.toFixed(2)}</Typo>
               </li>
             </ul>
@@ -120,11 +122,11 @@ function CoinDetail() {
           <Section>
             <ul>
               <li>
-                <Typo size="h10">TOTAL SUPPLY:</Typo>
+                <Typo size="h10">{coinSection.TOTAL_SUPPLY}</Typo>
                 <Typo size="b4">{priceData?.total_supply}</Typo>
               </li>
               <li>
-                <Typo size="h10">MAX SUPPLY:</Typo>
+                <Typo size="h10">{coinSection.MAX_SUPPLY}</Typo>
                 <Typo size="b4">{priceData?.max_supply}</Typo>
               </li>
             </ul>
@@ -135,13 +137,13 @@ function CoinDetail() {
       <TabContainer>
         <Tab isActive={chartMatch ? chartMatch.pattern : null}>
           <Link to="chart">
-            <Typo size="h10">CHART</Typo>
+            <Typo size="h10">{tab.CHART}</Typo>
           </Link>
         </Tab>
 
         <Tab isActive={priceMatch ? priceMatch.pattern : null}>
           <Link to="price">
-            <Typo size="h10">PRICE</Typo>
+            <Typo size="h10">{tab.PRICE}</Typo>
           </Link>
         </Tab>
       </TabContainer>
