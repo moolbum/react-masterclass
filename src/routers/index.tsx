@@ -1,6 +1,5 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
-import Abount from "../pages/About";
 import Coin from "../pages/Coin";
 import CoinDetail from "../pages/CoinDetail";
 import Chart from "../pages/Chart";
@@ -23,10 +22,6 @@ const router = createBrowserRouter([
         errorElement: <ErrorComponent />,
       },
       {
-        path: "about",
-        element: <Abount />,
-      },
-      {
         path: "coin",
         element: <Coin />,
       },
@@ -44,10 +39,6 @@ const router = createBrowserRouter([
         children: [
           {
             path: "followers",
-            element: <Follower />,
-          },
-          {
-            path: "followeing",
             element: <Follower />,
           },
         ],

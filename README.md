@@ -6,7 +6,7 @@
 - React Router v6
   - createBrowserRouter 적용
   - Outlet 적용
-- contextApi를 이용한 다크모드 구현
+- Recoil 적용
 
 배포주소 https://react-masterclass-eta.vercel.app/
 
@@ -15,11 +15,11 @@
 ### ⚙️ 기술스택
 
 ```
-- Task : React.js, TypeScript
+- Task : React.js, TypeScript, Prettier, ESLint
 - State : React-Query, Axios
 - style : Styled-components
 - Build : Create React App
-- Other : ApexChart, Prettier, React-helmet, React-icons
+- Other : ApexChart, React-icons
 ```
 
 <br>
@@ -36,7 +36,6 @@
     │   └── ...
     │
     ├── data
-    ├── hooks
     ├── interface
     ├── pages
     │   └── ...

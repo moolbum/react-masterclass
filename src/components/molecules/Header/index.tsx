@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { ThemeContext } from "../../../contexts/theme";
 
 function Header() {
-  const { onChangeTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
 
   const goToPage = (url: string) => {
@@ -17,12 +15,9 @@ function Header() {
           <button onClick={() => goToPage("/")}>Home</button>
         </li>
         <li>
-          <button onClick={() => goToPage("/about")}>Abount</button>
-        </li>
-        <li>
           <button onClick={() => goToPage("/coin")}>Coin</button>
         </li>
-        <button type="button" onClick={onChangeTheme}>
+        <button type="button" onClick={() => {}}>
           DarkMode
         </button>
       </ul>

@@ -1,15 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import ApexChart from "react-apexcharts";
 import { useQuery } from "react-query";
 import { useOutletContext } from "react-router-dom";
 import { getCoinHistory } from "../../apis/coin";
-import { ThemeContext } from "../../contexts/theme";
 import { CoinHistory } from "../../interface/coin";
 import { lightTheme } from "../../styles/theme";
 
 function Chart() {
   const { coinId } = useOutletContext<{ coinId: string }>();
-  const contextTheme = useContext(ThemeContext);
 
   const { isLoading, data } = useQuery<CoinHistory[]>(
     ["coinHistoy", coinId],
@@ -44,7 +42,7 @@ function Chart() {
               background: "transparent",
             },
             theme: {
-              mode: contextTheme.theme === "lightTheme" ? "light" : "dark",
+              mode: "light",
             },
             stroke: {
               curve: "smooth",
