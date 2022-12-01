@@ -70,12 +70,14 @@ function CoinDetail() {
   const chartMatch = useMatch(`/coin/${id}/chart`);
   const priceMatch = useMatch(`/coin/${id}/price`);
 
-  const coinInfo = useQuery<InfoData>(["coinInfo", id], () =>
-    getCoinInfo(`${id}`)
+  const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
+    ["coinInfo", id],
+    () => getCoinInfo(`${id}`)
   );
 
-  const coinPrice = useQuery<PriceData>(["coinPrice", id], () =>
-    getCoinPrice(`${id}`)
+  const { isLoading: priceLoading, data: priceData } = useQuery<PriceData>(
+    ["coinPrice", id],
+    () => getCoinPrice(`${id}`)
   );
 
   return (
@@ -85,13 +87,13 @@ function CoinDetail() {
           <Typo size="h1">
             {state?.name
               ? state?.name
-              : coinInfo.isLoading
+              : infoLoading
               ? "Loading..."
-              : coinInfo.data?.name}
+              : infoData?.name}
           </Typo>
         </Title>
       </Header>
-      {coinInfo.isLoading && coinPrice.isLoading ? (
+      {infoLoading && priceLoading ? (
         "Loading..."
       ) : (
         <main>
@@ -99,31 +101,29 @@ function CoinDetail() {
             <ul>
               <li>
                 <Typo size="h10">RANK:</Typo>{" "}
-                <Typo size="b4">{coinPrice.data?.rank}</Typo>
+                <Typo size="b4">{priceData?.rank}</Typo>
               </li>
               <li>
                 <Typo size="h10">SYMBOL:</Typo>{" "}
-                <Typo size="b4">${coinInfo.data?.symbol}</Typo>
+                <Typo size="b4">${infoData?.symbol}</Typo>
               </li>
               <li>
                 <Typo size="h10">OPEN SOURCE:</Typo>
-                <Typo size="b4">
-                  {coinInfo.data?.open_source ? "Yes" : false}
-                </Typo>
+                <Typo size="b4">{infoData?.open_source ? "Yes" : false}</Typo>
               </li>
             </ul>
           </Section>
-          <Typo>{coinInfo.data?.description}</Typo>
+          <Typo>{infoData?.description}</Typo>
 
           <Section>
             <ul>
               <li>
                 <Typo size="h10">TOTAL SUPPLY:</Typo>
-                <Typo size="b4">{coinPrice.data?.total_supply}</Typo>
+                <Typo size="b4">{priceData?.total_supply}</Typo>
               </li>
               <li>
                 <Typo size="h10">MAX SUPPLY:</Typo>
-                <Typo size="b4">{coinPrice.data?.max_supply}</Typo>
+                <Typo size="b4">{priceData?.max_supply}</Typo>
               </li>
             </ul>
           </Section>
