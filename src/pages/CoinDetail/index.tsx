@@ -8,63 +8,9 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 import Typo from "../../components/atoms/Typo";
+import { InfoData, PriceData } from "../../interface/coin";
 import { Container, Header, Title } from "../Coin";
 
-export interface InfoData {
-  id: string;
-  name: string;
-  symbol: string;
-  rank: number;
-  is_new: boolean;
-  is_active: boolean;
-  type: string;
-  logo: string;
-  description: string;
-  message: string;
-  open_source: boolean;
-  started_at: string;
-  development_status: string;
-  hardware_wallet: boolean;
-  proof_type: string;
-  org_structure: string;
-  hash_algorithm: string;
-  first_data_at: string;
-  last_data_at: string;
-}
-
-export interface PriceData {
-  id: string;
-  name: string;
-  symbol: string;
-  rank: number;
-  circulating_supply: number;
-  total_supply: number;
-  max_supply: number;
-  beta_value: number;
-  first_data_at: string;
-  last_updated: string;
-  quotes: {
-    USD: {
-      ath_date: string;
-      ath_price: number;
-      market_cap: number;
-      market_cap_change_24h: number;
-      percent_change_1h: number;
-      percent_change_1y: number;
-      percent_change_6h: number;
-      percent_change_7d: number;
-      percent_change_12h: number;
-      percent_change_15m: number;
-      percent_change_24h: number;
-      percent_change_30d: number;
-      percent_change_30m: number;
-      percent_from_price_ath: number;
-      price: number;
-      volume_24h: number;
-      volume_24h_change_24h: number;
-    };
-  };
-}
 interface RouteState {
   state: {
     name: string;
@@ -91,7 +37,7 @@ const Section = styled.section`
   }
 `;
 
-const LinkContainer = styled.div`
+const TabContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -99,7 +45,7 @@ const LinkContainer = styled.div`
 
   a {
     display: block;
-    width: 50%;
+
     padding: 10px;
     text-align: center;
     border-radius: 8px;
@@ -108,15 +54,19 @@ const LinkContainer = styled.div`
   }
 `;
 
+const Tab = styled.div`
+  width: 100%;
+`;
+
 function CoinDetail() {
   const { state } = useLocation() as RouteState;
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState<InfoData>();
   const [price, setPrice] = useState<PriceData>();
-  const chartMatch = useMatch("/:id/chart");
 
-  console.log("chartMatch>>>>>>", chartMatch);
+  const chartMatch = useMatch(`/coin/${id}/chart`);
+  const priceMatch = useMatch(`/coin/${id}/price`);
 
   useEffect(() => {
     (async () => {
@@ -140,8 +90,11 @@ function CoinDetail() {
     })();
   }, [id]);
 
-  console.log("infoData>>>>", info);
-  console.log("priceData>>>>", price);
+  console.log("chartMatch>>>>>>", chartMatch);
+  console.log("priceMatch>>>>>>", priceMatch);
+
+  // console.log("infoData>>>>", info);
+  // console.log("priceData>>>>", price);
 
   return (
     <Container>
@@ -187,15 +140,18 @@ function CoinDetail() {
                 </ul>
               </Section>
 
-              <LinkContainer>
-                <Link to="chart">
-                  <Typo size="h10">CHART</Typo>
-                </Link>
-
-                <Link to="price">
-                  <Typo size="h10">PRICE</Typo>
-                </Link>
-              </LinkContainer>
+              <TabContainer>
+                <Tab>
+                  <Link to="chart">
+                    <Typo size="h10">CHART</Typo>
+                  </Link>
+                </Tab>
+                <Tab>
+                  <Link to="price">
+                    <Typo size="h10">PRICE</Typo>
+                  </Link>
+                </Tab>
+              </TabContainer>
 
               <Outlet />
             </main>
