@@ -5,6 +5,7 @@
 - React-Query 적용
 - React Router v6
   - createBrowserRouter 적용
+  - Outlet 적용
 - contextApi를 이용한 다크모드 구현
 
 <br>
@@ -13,7 +14,7 @@
 
 ```
 - Task : React.js, TypeScript
-- State : React-Query, axios
+- State : React-Query, Axios
 - style : Styled-components
 - Build : Create React App
 - Other : ApexChart, Prettier
