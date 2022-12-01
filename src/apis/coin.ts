@@ -17,3 +17,11 @@ export const getCoinPrice = async (id: string) => {
 
   return res.data;
 };
+
+export const getCoinHistory = async (id: string) => {
+  const res = await axios(
+    `https://ohlcv-api.nomadcoders.workers.dev?coinId=${id}`
+  );
+
+  return res.data;
+};

@@ -147,7 +147,7 @@ function CoinDetail() {
       </TabContainer>
 
       <TabLayout>
-        <Outlet />
+        <Outlet context={{ coinId: id }} />
       </TabLayout>
     </Container>
   );
