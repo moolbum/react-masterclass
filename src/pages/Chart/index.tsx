@@ -5,6 +5,7 @@ import { useOutletContext } from "react-router-dom";
 import { getCoinHistory } from "../../apis/coin";
 import { ThemeContext } from "../../contexts/theme";
 import { CoinHistory } from "../../interface/coin";
+import { lightTheme } from "../../styles/theme";
 
 function Chart() {
   const { coinId } = useOutletContext<{ coinId: string }>();
@@ -49,6 +50,17 @@ function Chart() {
               axisTicks: { show: false },
               axisBorder: { show: false },
               labels: { show: false },
+              type: "datetime",
+              categories:
+                data && data.map(({ time_close }) => Number(time_close)),
+            },
+            fill: {
+              type: "gradient",
+              gradient: { gradientToColors: ["#7cff92"], stops: [0, 100] },
+            },
+            colors: [lightTheme.accentColor],
+            tooltip: {
+              y: { formatter: (value) => `$${value.toFixed(2)}` },
             },
           }}
         />

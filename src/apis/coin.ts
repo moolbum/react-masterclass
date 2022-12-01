@@ -20,7 +20,7 @@ export const getCoinPrice = async (id: string) => {
 
 export const getCoinHistory = async (id: string) => {
   const endDate = Math.floor(Date.now() / 1000); // 현재 시간 -> 초
-  const startDate = endDate - 60 * 60 * 24 * 7 * 1; // 현재 시간 - 1주일// 현재 시간 - 1주일
+  const startDate = endDate - 60 * 60 * 24 * 7 * 2; // 현재 시간 - 1주일// 현재 시간 - 1주일
 
   const res = await axios(
     `${COIN_HISTORY_URL}?coinId=${id}&start=${startDate}&end=${endDate}`
