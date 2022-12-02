@@ -6,12 +6,6 @@ interface ButtonProps {
   className?: string;
 }
 
-const StyledButton = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-`;
-
 function Button({
   children,
   onClick,
@@ -25,3 +19,9 @@ function Button({
 }
 
 export default Button;
+
+const StyledButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+`;

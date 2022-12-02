@@ -6,6 +6,49 @@ import { getCoinList } from "../../apis/coin";
 import Typo from "../../components/atoms/Typo";
 import { CoinInterface } from "../../interface/coin";
 
+function Coin() {
+  const { isLoading, data } = useQuery<CoinInterface[]>(
+    "coinList",
+    getCoinList,
+    {
+      select: (data) => data.slice(0, 30),
+    }
+  );
+
+  return (
+    <Container>
+      <Header>
+        <Title>
+          <Typo size="h1">Coin</Typo>
+        </Title>
+      </Header>
+      {isLoading ? (
+        "...loading"
+      ) : (
+        <CoinItemList>
+          {data?.map(({ id, name, symbol }) => {
+            return (
+              <CoinItem key={id}>
+                <Link to={id} state={{ name, id }}>
+                  <img
+                    src={`https://coinicons-api.vercel.app/api/icon/${symbol.toLocaleLowerCase()}`}
+                    alt="coin-icon"
+                  />
+                  <Typo size="b4">
+                    {name} ({symbol}) &rarr;
+                  </Typo>
+                </Link>
+              </CoinItem>
+            );
+          })}
+        </CoinItemList>
+      )}
+    </Container>
+  );
+}
+
+export default Coin;
+
 export const Container = styled.div`
   width: 100%;
   max-width: 480px;
@@ -58,46 +101,3 @@ export const Title = styled.h1`
   font-size: 42px;
   color: ${({ theme }) => theme.accentColor};
 `;
-
-function Coin() {
-  const { isLoading, data } = useQuery<CoinInterface[]>(
-    "coinList",
-    getCoinList,
-    {
-      select: (data) => data.slice(0, 30),
-    }
-  );
-
-  return (
-    <Container>
-      <Header>
-        <Title>
-          <Typo size="h1">Coin</Typo>
-        </Title>
-      </Header>
-      {isLoading ? (
-        "...loading"
-      ) : (
-        <CoinItemList>
-          {data?.map(({ id, name, symbol }) => {
-            return (
-              <CoinItem key={id}>
-                <Link to={id} state={{ name, id }}>
-                  <img
-                    src={`https://coinicons-api.vercel.app/api/icon/${symbol.toLocaleLowerCase()}`}
-                    alt="coin-icon"
-                  />
-                  <Typo size="b4">
-                    {name} ({symbol}) &rarr;
-                  </Typo>
-                </Link>
-              </CoinItem>
-            );
-          })}
-        </CoinItemList>
-      )}
-    </Container>
-  );
-}
-
-export default Coin;

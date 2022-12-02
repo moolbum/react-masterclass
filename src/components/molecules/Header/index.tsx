@@ -9,29 +9,6 @@ import {
   TODO_LIST_PATH,
 } from "../../../routers/constants";
 
-const HeaerContainer = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1080px;
-  height: 60px;
-  margin: 0 auto;
-  margin-bottom: 28px;
-
-  ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-  }
-
-  button {
-    padding: 5px;
-    border-radius: 2px;
-  }
-`;
-
 function Header() {
   const navigate = useNavigate();
   const [isDarkMode, setIsDarkMode] = useRecoilState(isDarkAtom);
@@ -61,3 +38,26 @@ function Header() {
 }
 
 export default Header;
+
+const HeaerContainer = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1080px;
+  height: 60px;
+  margin: 0 auto;
+  margin-bottom: 28px;
+
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  button {
+    padding: 5px;
+    border-radius: 2px;
+  }
+`;

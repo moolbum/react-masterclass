@@ -8,7 +8,7 @@ import { RecoilRoot } from "recoil";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      onError: (error) => console.log(error as AxiosError),
+      onError: (error) => console.log("error>>>>", error as AxiosError),
     },
   },
 });

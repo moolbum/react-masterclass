@@ -1,4 +1,4 @@
-export type Theme = typeof lightTheme;
+export type ThemeType = typeof lightTheme;
 
 const darkTheme = {
   white: "#fff",
@@ -7,6 +7,7 @@ const darkTheme = {
   backgroundColor: "#2f3640",
   backgroundColorReversal: "#f5f6fa",
   accentColor: "#0071e3",
+  error: "#fc1616",
 };
 
 const lightTheme = {
@@ -16,6 +17,7 @@ const lightTheme = {
   backgroundColor: "#f5f6fa",
   backgroundColorReversal: "#2f3640",
   accentColor: "#0071e3",
+  error: "#fc1616",
 };
 
 export { darkTheme, lightTheme };

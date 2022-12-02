@@ -7,7 +7,6 @@ interface FollowersContext {
 
 function Follower() {
   const { nameOfMyUser } = useOutletContext<FollowersContext>();
-  console.log("{nameOfMyUser}>>>>>", nameOfMyUser);
 
   return <div>Here are {nameOfMyUser}의 follwers</div>;
 }

@@ -26,65 +26,6 @@ interface RouteState {
   };
 }
 
-const TitleContainer = styled(Title)`
-  position: relative;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .title-container {
-    position: absolute;
-    left: 0;
-  }
-`;
-
-const ButtonIcon = styled(HiArrowLeft)`
-  color: ${({ theme }) => theme.accentColor};
-  font-size: 20px;
-`;
-
-const Section = styled.section`
-  margin: 20px 0;
-  padding: 10px 15px;
-  color: ${({ theme }) => theme.textColorReversal};
-  background: ${({ theme }) => theme.backgroundColorReversal};
-  border-radius: 8px;
-
-  ul {
-    display: flex;
-    justify-content: space-between;
-
-    li {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-`;
-
-const TabContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-
-  a {
-    display: block;
-    padding: 10px;
-    text-align: center;
-  }
-`;
-
-const Tab = styled.div<{ isActive: PathPattern<string> | null }>`
-  width: 100%;
-  border-radius: 8px;
-  color: ${({ theme, isActive }) =>
-    isActive ? theme.white : theme.textColorReversal};
-  background: ${({ theme, isActive }) =>
-    isActive ? theme.accentColor : theme.backgroundColorReversal};
-`;
-
 function CoinDetail() {
   const { state } = useLocation() as RouteState;
   const { id } = useParams();
@@ -185,3 +126,62 @@ function CoinDetail() {
 }
 
 export default CoinDetail;
+
+const TitleContainer = styled(Title)`
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .title-container {
+    position: absolute;
+    left: 0;
+  }
+`;
+
+const ButtonIcon = styled(HiArrowLeft)`
+  color: ${({ theme }) => theme.accentColor};
+  font-size: 20px;
+`;
+
+const Section = styled.section`
+  margin: 20px 0;
+  padding: 10px 15px;
+  color: ${({ theme }) => theme.textColorReversal};
+  background: ${({ theme }) => theme.backgroundColorReversal};
+  border-radius: 8px;
+
+  ul {
+    display: flex;
+    justify-content: space-between;
+
+    li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+`;
+
+const TabContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+
+  a {
+    display: block;
+    padding: 10px;
+    text-align: center;
+  }
+`;
+
+const Tab = styled.div<{ isActive: PathPattern<string> | null }>`
+  width: 100%;
+  border-radius: 8px;
+  color: ${({ theme, isActive }) =>
+    isActive ? theme.white : theme.textColorReversal};
+  background: ${({ theme, isActive }) =>
+    isActive ? theme.accentColor : theme.backgroundColorReversal};
+`;
