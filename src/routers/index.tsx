@@ -10,35 +10,50 @@ import NotFound from "../pages/NotFound";
 import User from "../pages/User";
 import Follower from "../pages/User/follower";
 import Root from "../Root";
+import {
+  CHART_PATH,
+  COIN_PATH,
+  FOLLOWERS_PATH,
+  HOME_PATH,
+  MAIN_PATH,
+  PRICE_PATH,
+  TODO_LIST_PATH,
+  USER_PATH,
+} from "./constants";
+import TodoList from "../pages/TodoList";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: MAIN_PATH,
     element: <Root />,
     children: [
       {
-        path: "",
+        path: HOME_PATH,
         element: <Home />,
         errorElement: <ErrorComponent />,
       },
       {
-        path: "coin",
+        path: COIN_PATH,
         element: <Coin />,
       },
       {
-        path: "coin/:id",
+        path: `${COIN_PATH}/:id`,
         element: <CoinDetail />,
         children: [
-          { path: "chart", element: <Chart /> },
-          { path: "price", element: <Price /> },
+          { path: CHART_PATH, element: <Chart /> },
+          { path: PRICE_PATH, element: <Price /> },
         ],
       },
       {
-        path: "users/:id",
+        path: TODO_LIST_PATH,
+        element: <TodoList />,
+      },
+      {
+        path: `${USER_PATH}/:id`,
         element: <User />,
         children: [
           {
-            path: "followers",
+            path: FOLLOWERS_PATH,
             element: <Follower />,
           },
         ],

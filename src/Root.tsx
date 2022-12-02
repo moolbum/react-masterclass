@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import DefaultLayout from "./components/molecules/DefaultLayout";
 import Header from "./components/molecules/Header";
 
 const Wrapper = styled.div`
@@ -14,7 +15,10 @@ function Root() {
   return (
     <Wrapper>
       <Header />
-      <Outlet />
+
+      <DefaultLayout>
+        <Outlet />
+      </DefaultLayout>
     </Wrapper>
   );
 }

@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import { useOutletContext } from "react-router-dom";
 import { getCoinHistory } from "../../apis/coin";
-import { isDarkAtom } from "../../atoms/theme";
+import { isDarkAtom } from "../../atoms";
 import { CoinHistory } from "../../interface/coin";
 import { lightTheme } from "../../styles/theme";
 
