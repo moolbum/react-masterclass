@@ -1,97 +1,73 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { RecoilState, useRecoilState } from "recoil";
 import styled from "styled-components";
+import { toDoState } from "../../atoms";
 import ErrorMessage from "../../components/atoms/ErrorMessage";
+import Typo from "../../components/atoms/Typo";
 
+export type CategoryType = "TO_DO" | "DOING" | "DONE";
 interface IForm {
-  email: string;
-  id: string;
-  name: string;
-  password: string;
-  passwordCheck: string;
+  toDo: string;
+}
+
+interface ITodo {
+  text: string;
+  category: CategoryType;
 }
 
 function TodoList() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm<IForm>({
-    defaultValues: {
-      email: "@naver.com",
-    },
-  });
+  const [toDoValue, setToDoValue] = useRecoilState<ITodo[]>(
+    toDoState as RecoilState<any>
+  );
 
-  const onValid = (data: IForm) => {
-    if (data.password !== data.passwordCheck) {
-      setError(
-        "passwordCheck",
-        { message: "비밀번호가 일치하지 않습니다." },
-        { shouldFocus: true }
-      );
+  const { register, handleSubmit, setError, formState, setValue } =
+    useForm<IForm>();
+
+  const onValid = ({ toDo }: IForm) => {
+    if (toDo === "") {
+      setError("toDo", { message: "텍스트를 입력해주세요" });
     }
-
-    console.log(data);
+    setValue("toDo", "");
+    setToDoValue((prev) => [{ text: toDo, category: "TO_DO" }, ...prev]);
   };
-  console.log("errors", errors);
+
+  console.log("toDoValue", toDoValue);
 
   return (
-    <div>
+    <TodoListContainer>
+      <Typo size="h1">To Dos</Typo>
       <Form onSubmit={handleSubmit(onValid)}>
         <input
-          {...register("email", {
-            required: "이메일을 입력해주세요",
-            pattern: {
-              value: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@/,
-              message: "이메일 형식으로 입력해주세요",
-            },
+          {...register("toDo", {
+            required: "텍스트를 입력해주세요",
           })}
-          placeholder="이메일"
+          placeholder="Todo"
         />
-        <ErrorMessage>{errors.email?.message}</ErrorMessage>
-
-        <input
-          {...register("name", {
-            required: "이름을 입력해주세요",
-            validate: (value) => (value.includes("dale") ? "no Dale" : true),
-          })}
-          placeholder="이름"
-        />
-        <ErrorMessage>{errors?.name?.message}</ErrorMessage>
-
-        <input
-          {...register("id", { required: "아이디를 입력해주세요" })}
-          placeholder="아이디"
-        />
-        <ErrorMessage>{errors?.id?.message}</ErrorMessage>
-
-        <input
-          {...register("password", { required: "비밀번호를 입력해주세요" })}
-          placeholder="비밀번호"
-          type="password"
-        />
-        <ErrorMessage>{errors?.password?.message}</ErrorMessage>
-
-        <input
-          {...register("passwordCheck", {
-            required: "비밀번호 확인을 입력해주세요",
-          })}
-          placeholder="비밀번호 확인"
-          type="password"
-        />
-        <ErrorMessage>{errors?.passwordCheck?.message}</ErrorMessage>
+        {formState.errors.toDo && (
+          <ErrorMessage>{formState.errors.toDo.message}</ErrorMessage>
+        )}
 
         <button>Add</button>
       </Form>
-    </div>
+    </TodoListContainer>
   );
 }
 
 export default TodoList;
 
+const TodoListContainer = styled.div`
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const Form = styled.form`
-  max-width: 480px;
+  width: 100%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   gap: 10px;
