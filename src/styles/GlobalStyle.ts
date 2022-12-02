@@ -20,8 +20,11 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
   }
   input, button{
-    border-radius: 8px;
     border: none;
+  }
+
+  button{
+    cursor: pointer;
   }
 `;
 

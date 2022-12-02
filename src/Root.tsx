@@ -7,7 +7,7 @@ import Header from "./components/molecules/Header";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   background-color: ${({ theme }) => theme.backgroundColor};
 `;
 
