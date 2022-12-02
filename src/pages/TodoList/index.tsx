@@ -20,7 +20,10 @@ function TodoList() {
     text: string
   ) => {
     const { name } = e.currentTarget;
-    console.log(e.currentTarget);
+
+    if (name === "DELETE") {
+      return setTodos((prev) => prev.filter((item) => item.id !== id));
+    }
 
     setTodos((prev) => {
       const targetIndex = prev.findIndex((item) => item.id === id);
@@ -60,6 +63,9 @@ function TodoList() {
                     Done
                   </button>
                 )}
+                <button name="DELETE" onClick={(e) => onClick(e, id, text)}>
+                  Delete
+                </button>
               </div>
             </ToDoItem>
           );
