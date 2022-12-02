@@ -17,6 +17,11 @@ const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
+    outline: none;
+  }
+  input, button{
+    border-radius: 8px;
+    border: none;
   }
 `;
 
