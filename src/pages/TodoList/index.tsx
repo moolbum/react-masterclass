@@ -1,62 +1,43 @@
 import React from "react";
-import { useForm } from "react-hook-form";
-import { RecoilState, useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { toDoState } from "../../atoms";
-import ErrorMessage from "../../components/atoms/ErrorMessage";
 import Typo from "../../components/atoms/Typo";
+import CreateToDo from "./CreateToDo";
 
-export type CategoryType = "TO_DO" | "DOING" | "DONE";
-interface IForm {
+export interface IForm {
   toDo: string;
 }
 
-interface ITodo {
-  text: string;
-  category: CategoryType;
-}
-
 function TodoList() {
-  const [toDoValue, setToDoValue] = useRecoilState<ITodo[]>(
-    toDoState as RecoilState<any>
-  );
-
-  const { register, handleSubmit, setError, formState, setValue } =
-    useForm<IForm>();
-
-  const onValid = ({ toDo }: IForm) => {
-    if (toDo === "") {
-      setError("toDo", { message: "텍스트를 입력해주세요" });
-    }
-    setValue("toDo", "");
-    setToDoValue((prev) => [{ text: toDo, category: "TO_DO" }, ...prev]);
-  };
-
-  console.log("toDoValue", toDoValue);
+  const toDoValue = useRecoilValue(toDoState);
 
   return (
     <TodoListContainer>
       <Typo size="h1">To Dos</Typo>
-      <Form onSubmit={handleSubmit(onValid)}>
-        <input
-          {...register("toDo", {
-            required: "텍스트를 입력해주세요",
-          })}
-          placeholder="Todo"
-        />
-        {formState.errors.toDo && (
-          <ErrorMessage>{formState.errors.toDo.message}</ErrorMessage>
-        )}
+      <CreateToDo />
 
-        <button>Add</button>
-      </Form>
+      <ToDoList>
+        {toDoValue.map(({ id, text }) => {
+          return (
+            <ToDoItem key={id}>
+              {text}
+              <div>
+                <button>Doing</button>
+                <button>To Do</button>
+                <button>Done</button>
+              </div>
+            </ToDoItem>
+          );
+        })}
+      </ToDoList>
     </TodoListContainer>
   );
 }
 
 export default TodoList;
 
-const TodoListContainer = styled.div`
+const TodoListContainer = styled.main`
   display: flex;
   width: 100%;
   margin: 0 auto;
@@ -65,21 +46,18 @@ const TodoListContainer = styled.div`
   align-items: center;
 `;
 
-const Form = styled.form`
+const ToDoList = styled.ul`
   width: 100%;
   max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 0 auto;
+  margin-top: 50px;
+`;
 
-  input {
-    padding: 10px 20px;
-    border-radius: 8px;
-  }
-
-  button {
-    padding: 10px 20px;
-    border-radius: 8px;
-  }
+const ToDoItem = styled.li`
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background: ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.black};
+  box-shadow: 0px 2px 6px rgba(94, 101, 110, 0.2);
 `;

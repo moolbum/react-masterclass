@@ -19,8 +19,10 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     outline: none;
   }
+  
   input, button{
     border: none;
+    box-shadow: 0px 2px 6px rgba(94, 101, 110, 0.2);
   }
 
   button{

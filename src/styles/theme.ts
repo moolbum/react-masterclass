@@ -2,6 +2,7 @@ export type ThemeType = typeof lightTheme;
 
 const darkTheme = {
   white: "#fff",
+  black: "#1e1e1e",
   textColor: "#f5f6fa",
   textColorReversal: "#2f3640",
   backgroundColor: "#2f3640",
@@ -12,6 +13,7 @@ const darkTheme = {
 
 const lightTheme = {
   white: "#fff",
+  black: "#1e1e1e",
   textColor: "#2f3640",
   textColorReversal: "#f5f6fa",
   backgroundColor: "#f5f6fa",
