@@ -6,13 +6,13 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
-    background-color: ${(props) => props.theme.backgroundColor};
+    background-color: ${({ theme }) => theme.backgroundColor};
     color: ${({ theme }) => theme.textColor}
   }
 
   a{
     text-decoration:none;
-    color:inherit ;
+    /* color:inherit ; */
   }
 
   * {

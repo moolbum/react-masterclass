@@ -58,7 +58,7 @@ function CoinDetail() {
           <Button onClick={goToListPage} className="title-container">
             <ButtonIcon />
           </Button>
-          <Typo size="h1">
+          <Typo size="h1" color="accentColor">
             {state?.name
               ? state?.name
               : infoLoading
@@ -74,16 +74,28 @@ function CoinDetail() {
           <Section>
             <ul>
               <li>
-                <Typo size="h10">{coinSection.RANK}</Typo>{" "}
-                <Typo size="b4">{priceData?.rank}</Typo>
+                <Typo size="h10" color="backgroundColor">
+                  {coinSection.RANK}
+                </Typo>{" "}
+                <Typo size="b4" color="backgroundColor">
+                  {priceData?.rank}
+                </Typo>
               </li>
               <li>
-                <Typo size="h10">{coinSection.SYMBOL}</Typo>{" "}
-                <Typo size="b4">${infoData?.symbol}</Typo>
+                <Typo size="h10" color="backgroundColor">
+                  {coinSection.SYMBOL}
+                </Typo>{" "}
+                <Typo size="b4" color="backgroundColor">
+                  ${infoData?.symbol}
+                </Typo>
               </li>
               <li>
-                <Typo size="h10">{coinSection.PRICE}</Typo>
-                <Typo size="b4">${priceData?.quotes.USD.price.toFixed(2)}</Typo>
+                <Typo size="h10" color="backgroundColor">
+                  {coinSection.PRICE}
+                </Typo>
+                <Typo size="b4" color="backgroundColor">
+                  ${priceData?.quotes.USD.price.toFixed(2)}
+                </Typo>
               </li>
             </ul>
           </Section>
@@ -92,12 +104,20 @@ function CoinDetail() {
           <Section>
             <ul>
               <li>
-                <Typo size="h10">{coinSection.TOTAL_SUPPLY}</Typo>
-                <Typo size="b4">{priceData?.total_supply}</Typo>
+                <Typo size="h10" color="backgroundColor">
+                  {coinSection.TOTAL_SUPPLY}
+                </Typo>
+                <Typo size="b4" color="backgroundColor">
+                  {priceData?.total_supply}
+                </Typo>
               </li>
               <li>
-                <Typo size="h10">{coinSection.MAX_SUPPLY}</Typo>
-                <Typo size="b4">{priceData?.max_supply}</Typo>
+                <Typo size="h10" color="backgroundColor">
+                  {coinSection.MAX_SUPPLY}
+                </Typo>
+                <Typo size="b4" color="backgroundColor">
+                  {priceData?.max_supply}
+                </Typo>
               </li>
             </ul>
           </Section>
@@ -107,13 +127,17 @@ function CoinDetail() {
       <TabContainer>
         <Tab isActive={chartMatch ? chartMatch.pattern : null}>
           <Link to="chart">
-            <Typo size="h10">{tab.CHART}</Typo>
+            <Typo size="h10" color={chartMatch ? "white" : "textColorReversal"}>
+              {tab.CHART}
+            </Typo>
           </Link>
         </Tab>
 
         <Tab isActive={priceMatch ? priceMatch.pattern : null}>
           <Link to="price">
-            <Typo size="h10">{tab.PRICE}</Typo>
+            <Typo size="h10" color={priceMatch ? "white" : "textColorReversal"}>
+              {tab.PRICE}
+            </Typo>
           </Link>
         </Tab>
       </TabContainer>
@@ -180,8 +204,6 @@ const TabContainer = styled.div`
 const Tab = styled.div<{ isActive: PathPattern<string> | null }>`
   width: 100%;
   border-radius: 8px;
-  color: ${({ theme, isActive }) =>
-    isActive ? theme.white : theme.textColorReversal};
   background: ${({ theme, isActive }) =>
     isActive ? theme.accentColor : theme.backgroundColorReversal};
 `;

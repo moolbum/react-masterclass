@@ -19,7 +19,9 @@ function Coin() {
     <Container>
       <Header>
         <Title>
-          <Typo size="h1">Coin</Typo>
+          <Typo size="h1" color="accentColor">
+            Coin
+          </Typo>
         </Title>
       </Header>
       {isLoading ? (
@@ -34,7 +36,7 @@ function Coin() {
                     src={`https://coinicons-api.vercel.app/api/icon/${symbol.toLocaleLowerCase()}`}
                     alt="coin-icon"
                   />
-                  <Typo size="b4">
+                  <Typo size="b4" color="backgroundColor">
                     {name} ({symbol}) &rarr;
                   </Typo>
                 </Link>
@@ -84,14 +86,9 @@ export const CoinItem = styled.li`
     align-items: center;
     padding: 20px;
     transition: color 0.3s ease-in;
-  }
-
-  & > a {
     color: ${({ theme }) => theme.textColorReversal};
-  }
 
-  &:hover {
-    a {
+    &:hover {
       color: ${({ theme }) => theme.accentColor};
     }
   }
@@ -99,5 +96,8 @@ export const CoinItem = styled.li`
 
 export const Title = styled.h1`
   font-size: 42px;
-  color: ${({ theme }) => theme.accentColor};
+
+  a {
+    color: ${({ theme }) => theme.accentColor};
+  }
 `;
