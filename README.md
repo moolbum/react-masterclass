@@ -20,6 +20,7 @@
 - style : Styled-components
 - Build : Create React App
 - Other : ApexChart, React-icons
+- Deploy : Vercel
 ```
 
 <br>
