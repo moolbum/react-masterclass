@@ -34,6 +34,10 @@ const GlobalStyle = createGlobalStyle`
       transform:translateY(2px) ;
     }
   }
+
+  select {
+    border: none;
+  }
 `;
 
 export default GlobalStyle;

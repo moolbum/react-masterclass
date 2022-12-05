@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { ITodo } from "./type";
+import { CategoryType, ITodo } from "./type";
 
 export const isDarkAtom = atom({
   key: "isDark",
@@ -9,6 +9,11 @@ export const isDarkAtom = atom({
 export const toDoState = atom<ITodo[]>({
   key: "toDo",
   default: [],
+});
+
+export const categoryState = atom<CategoryType>({
+  key: "category",
+  default: "ALL",
 });
 
 export const toDoSelector = selector({

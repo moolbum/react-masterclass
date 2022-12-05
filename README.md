@@ -1,4 +1,4 @@
-## ⭐️ React 코인 차트
+## ⭐️ React 코인 차트, To-Do List
 
 아토믹한 폴더구조 연습 및 React-query를 이용한 Data Fatching
 

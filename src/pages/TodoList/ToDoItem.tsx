@@ -2,7 +2,7 @@ import React from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { toDoState } from "../../atoms";
-import { CategoryType, ITodo } from "../../atoms/type";
+import { Categorys, CategoryType, ITodo } from "../../atoms/type";
 
 interface TodoItemProps extends ITodo {
   key: number;
@@ -14,7 +14,7 @@ function ToDoItem({ id, text, category }: TodoItemProps) {
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.currentTarget;
 
-    if (name === "DELETE") {
+    if (name === Categorys.DELETE) {
       return setTodos((prev) => prev.filter((item) => item.id !== id));
     }
 
@@ -34,22 +34,22 @@ function ToDoItem({ id, text, category }: TodoItemProps) {
     <StyledToDoItem>
       {text}
       <div className="todo-item-button">
-        {category !== "DOING" && (
-          <button name="DOING" onClick={(e) => onClick(e)}>
+        {category !== Categorys.DOING && (
+          <button name={Categorys.DOING} onClick={(e) => onClick(e)}>
             📝 Doing
           </button>
         )}
-        {category !== "TO_DO" && (
-          <button name="TO_DO" onClick={(e) => onClick(e)}>
+        {category !== Categorys.TODO && (
+          <button name={Categorys.TODO} onClick={(e) => onClick(e)}>
             📁 To Do
           </button>
         )}
-        {category !== "DONE" && (
-          <button name="DONE" onClick={(e) => onClick(e)}>
+        {category !== Categorys.DONE && (
+          <button name={Categorys.DONE} onClick={(e) => onClick(e)}>
             ✅ Done
           </button>
         )}
-        <button name="DELETE" onClick={(e) => onClick(e)}>
+        <button name={Categorys.DELETE} onClick={(e) => onClick(e)}>
           X
         </button>
       </div>
