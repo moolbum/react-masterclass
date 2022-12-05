@@ -23,6 +23,8 @@ function Typo({
 export default Typo;
 
 const StyledTypo = styled.span<TypoProps>`
+  display: inline-block;
+
   ${({ size }) => {
     return size && typoTheme[size];
   }}

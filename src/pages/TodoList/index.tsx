@@ -1,116 +1,90 @@
 import React from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { toDoState } from "../../atoms";
-import { CategoryType } from "../../atoms/type";
+import { toDoSelector } from "../../atoms";
 import Typo from "../../components/atoms/Typo";
 import CreateToDo from "./CreateToDo";
+import ToDoItem from "./ToDoItem";
 
 export interface IForm {
   toDo: string;
 }
 
 function TodoList() {
-  const toDoValue = useRecoilValue(toDoState);
-  const setTodos = useSetRecoilState(toDoState);
-
-  const onClick = (
-    e: React.MouseEvent<HTMLButtonElement>,
-    id: number,
-    text: string
-  ) => {
-    const { name } = e.currentTarget;
-
-    if (name === "DELETE") {
-      return setTodos((prev) => prev.filter((item) => item.id !== id));
-    }
-
-    setTodos((prev) => {
-      const targetIndex = prev.findIndex((item) => item.id === id);
-      const newToDo = { text, id, category: name as CategoryType };
-
-      return [
-        ...prev.slice(0, targetIndex),
-        newToDo,
-        ...prev.slice(targetIndex + 1),
-      ];
-    });
-  };
+  const [doing, done, toDo] = useRecoilValue(toDoSelector);
 
   return (
-    <TodoListContainer>
+    <ToDoListContainer>
       <Typo size="h1">To Dos</Typo>
       <CreateToDo />
+      <TaskInfo>
+        <Typo size="h6">
+          작업완료 {done.length} 작업중 {doing.length} 작업예정 {toDo.length}
+        </Typo>
+      </TaskInfo>
 
-      <ToDoList>
-        {toDoValue.map(({ id, text, category }) => {
-          return (
-            <ToDoItem key={id}>
-              {text}
-              <div className="todo-item-button">
-                {category !== "DOING" && (
-                  <button name="DOING" onClick={(e) => onClick(e, id, text)}>
-                    Doing
-                  </button>
-                )}
-                {category !== "TO_DO" && (
-                  <button name="TO_DO" onClick={(e) => onClick(e, id, text)}>
-                    To Do
-                  </button>
-                )}
-                {category !== "DONE" && (
-                  <button name="DONE" onClick={(e) => onClick(e, id, text)}>
-                    Done
-                  </button>
-                )}
-                <button name="DELETE" onClick={(e) => onClick(e, id, text)}>
-                  Delete
-                </button>
-              </div>
-            </ToDoItem>
-          );
-        })}
-      </ToDoList>
-    </TodoListContainer>
+      <ToDoListWrap>
+        <ToDoList>
+          <Typo size="h5">📁 작업예정 {toDo.length}</Typo>
+          {toDo.map(({ id, text, category }) => {
+            return (
+              <ToDoItem key={id} id={id} text={text} category={category} />
+            );
+          })}
+        </ToDoList>
+        <ToDoList>
+          <Typo size="h5">📝 작업중 {doing.length}</Typo>
+          {doing.map(({ id, text, category }) => {
+            return (
+              <ToDoItem key={id} id={id} text={text} category={category} />
+            );
+          })}
+        </ToDoList>
+        <ToDoList>
+          <Typo size="h5">✅ 작업완료 {done.length}</Typo>
+          {done.map(({ id, text, category }) => {
+            return (
+              <ToDoItem key={id} id={id} text={text} category={category} />
+            );
+          })}
+        </ToDoList>
+      </ToDoListWrap>
+    </ToDoListContainer>
   );
 }
 
 export default TodoList;
 
-const TodoListContainer = styled.main`
+const ToDoListContainer = styled.main`
   display: flex;
   width: 100%;
+
   margin: 0 auto;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
+`;
+
+const ToDoListWrap = styled.section`
+  width: 100%;
+  display: flex;
+  gap: 15px;
 `;
 
 const ToDoList = styled.ul`
   width: 100%;
   max-width: 500px;
-  margin-top: 50px;
+  padding: 12px;
+  border-radius: 12px;
+  background: ${({ theme }) => theme.backgroundColor01};
+
+  span {
+    margin-bottom: 20px;
+  }
 `;
 
-const ToDoItem = styled.li`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  background: ${({ theme }) => theme.white};
-  color: ${({ theme }) => theme.black};
-  box-shadow: 0px 2px 6px rgba(94, 101, 110, 0.2);
-
-  .todo-item-button {
-    display: flex;
-    gap: 10px;
-    button {
-      border-radius: 5px;
-      padding: 5px 10px;
-      box-shadow: 0px 2px 2px rgba(94, 101, 110, 0.2);
-    }
-  }
+const TaskInfo = styled.div`
+  align-self: flex-start;
+  padding: 12px;
 `;
