@@ -1,6 +1,8 @@
 ## ⭐️ React 코인 차트, To-Do List
 
-아토믹한 폴더구조 연습 및 React-query를 이용한 Data Fatching
+1. 아토믹한 폴더구조 연습 및 React-query를 이용한 코인 API Data Fatching
+2. To-Do 리스트 구현
+
 
 - React-Query 적용
 - React Router v6
