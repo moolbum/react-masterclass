@@ -6,9 +6,7 @@ import Typo from "../../components/atoms/Typo";
 import CreateToDo from "./CreateToDo";
 import ToDoItem from "./ToDoItem";
 
-export interface IForm {
-  toDo: string;
-}
+
 
 function TodoList() {
   const [doing, done, toDo] = useRecoilValue(toDoSelector);

@@ -2,10 +2,13 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { IForm } from ".";
 import { toDoState } from "../../atoms";
 import { ITodo } from "../../atoms/type";
 import ErrorMessage from "../../components/atoms/ErrorMessage";
+
+export interface IForm {
+  toDo: string;
+}
 
 function CreateToDo() {
   const setToDoValue = useSetRecoilState<ITodo[]>(toDoState);
