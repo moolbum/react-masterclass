@@ -7,10 +7,23 @@ import Typo from "../../components/atoms/Typo";
 import CreateToDo from "./CreateToDo";
 import ToDoItem from "./ToDoItem";
 
+const toDoStatus = {
+  ALL: "전체",
+  TODO: "작업예정",
+  DOING: "작업중",
+  DONE: "작업완료",
+};
+
+const toDoOption = [
+  { value: Categorys.ALL, label: toDoStatus.ALL },
+  { value: Categorys.TODO, label: toDoStatus.TODO },
+  { value: Categorys.DOING, label: toDoStatus.DOING },
+  { value: Categorys.DONE, label: toDoStatus.DONE },
+];
+
 function TodoList() {
   const [doing, done, toDo] = useRecoilValue(toDoSelector);
   const [toDoCategory, setToDoCategory] = useRecoilState(categoryState);
-  console.log("toDoCategory>>>>>", toDoCategory);
 
   const handleCategoryClick = (e: React.FormEvent<HTMLSelectElement>) => {
     const { value } = e.currentTarget;
@@ -23,15 +36,14 @@ function TodoList() {
       <CreateToDo />
       <TaskInfo>
         <Typo size="h6">
-          작업예정 {toDo.length} | 작업중 {doing.length} | 작업완료{" "}
-          {done.length}
+          {toDoStatus.TODO} {toDo.length} | {toDoStatus.DOING} {doing.length} |
+          {toDoStatus.DONE} {done.length}
         </Typo>
 
         <select value={toDoCategory} onInput={handleCategoryClick}>
-          <option value={Categorys.ALL}>전체</option>
-          <option value={Categorys.TODO}>작업예정</option>
-          <option value={Categorys.DOING}>작업중</option>
-          <option value={Categorys.DONE}>작업완료</option>
+          {toDoOption.map((item) => (
+            <option value={item.value}>{item.label}</option>
+          ))}
         </select>
       </TaskInfo>
 
@@ -39,7 +51,9 @@ function TodoList() {
         {(toDoCategory === Categorys.TODO ||
           toDoCategory === Categorys.ALL) && (
           <ToDoList>
-            <Typo size="h5">📁 작업예정 {toDo.length}</Typo>
+            <Typo size="h5">
+              📁 {toDoStatus.TODO} {toDo.length}
+            </Typo>
             {toDo.map(({ id, text, category }) => {
               return (
                 <ToDoItem key={id} id={id} text={text} category={category} />
@@ -51,7 +65,9 @@ function TodoList() {
         {(toDoCategory === Categorys.DOING ||
           toDoCategory === Categorys.ALL) && (
           <ToDoList>
-            <Typo size="h5">📝 작업중 {doing.length}</Typo>
+            <Typo size="h5">
+              📝 {toDoStatus.DOING} {doing.length}
+            </Typo>
             {doing.map(({ id, text, category }) => {
               return (
                 <ToDoItem key={id} id={id} text={text} category={category} />
@@ -63,7 +79,9 @@ function TodoList() {
         {(toDoCategory === Categorys.DONE ||
           toDoCategory === Categorys.ALL) && (
           <ToDoList>
-            <Typo size="h5">✅ 작업완료 {done.length}</Typo>
+            <Typo size="h5">
+              ✅ {toDoStatus.DONE} {done.length}
+            </Typo>
             {done.map(({ id, text, category }) => {
               return (
                 <ToDoItem key={id} id={id} text={text} category={category} />
