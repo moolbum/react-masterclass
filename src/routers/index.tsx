@@ -14,6 +14,7 @@ import TodoList from "../pages/TodoList";
 import {
   CHART_PATH,
   COIN_PATH,
+  DRAG_AND_DROP_PATH,
   FOLLOWERS_PATH,
   HOME_PATH,
   MAIN_PATH,
@@ -21,6 +22,7 @@ import {
   TODO_LIST_PATH,
   USER_PATH,
 } from "./constants";
+import DragAndDrop from "../pages/DragAndDrop";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: TODO_LIST_PATH,
         element: <TodoList />,
+      },
+      {
+        path: DRAG_AND_DROP_PATH,
+        element: <DragAndDrop />,
       },
       {
         path: `${USER_PATH}/:id`,

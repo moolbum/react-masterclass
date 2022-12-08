@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { isDarkAtom } from "../../../atoms";
 import {
   COIN_PATH,
+  DRAG_AND_DROP_PATH,
   HEADER_LABEL,
   MAIN_PATH,
   TODO_LIST_PATH,
@@ -34,6 +35,11 @@ function Header() {
         <li>
           <button onClick={() => goToPage(TODO_LIST_PATH)}>
             {HEADER_LABEL.TODOLIST}
+          </button>
+        </li>
+        <li>
+          <button onClick={() => goToPage(DRAG_AND_DROP_PATH)}>
+            {HEADER_LABEL.DRAG}
           </button>
         </li>
       </ul>
