@@ -12,7 +12,7 @@ import {
   DraggableProvided,
   Droppable,
   DroppableProvided,
-} from "react-beautiful-dnd";
+} from "@hello-pangea/dnd";
 
 const toDoStatus = {
   ALL: "전체",
@@ -39,6 +39,8 @@ function TodoList() {
 
   const onDragAnd = () => {};
 
+  const toDos = ["a", "b", "c"];
+
   return (
     <ToDoListContainer>
       <DragDropContext onDragEnd={onDragAnd}>
@@ -46,28 +48,20 @@ function TodoList() {
           <Droppable droppableId="one">
             {(dropProps: DroppableProvided) => (
               <ToDoList ref={dropProps.innerRef} {...dropProps.droppableProps}>
-                <Draggable draggableId="first" index={0}>
-                  {(dropItem: DraggableProvided) => (
-                    <StyledToDoItem
-                      ref={dropItem.innerRef}
-                      {...dropItem.draggableProps}
-                    >
-                      <span {...dropItem.dragHandleProps}>⭐️</span>
-                      One
-                    </StyledToDoItem>
-                  )}
-                </Draggable>
-                <Draggable draggableId="second" index={1}>
-                  {(dropItem: DraggableProvided) => (
-                    <StyledToDoItem
-                      ref={dropItem.innerRef}
-                      {...dropItem.draggableProps}
-                    >
-                      <span {...dropItem.dragHandleProps}>⭐️</span>
-                      Two
-                    </StyledToDoItem>
-                  )}
-                </Draggable>
+                {toDos.map((todo, idx) => (
+                  <Draggable draggableId={todo} index={idx}>
+                    {(dropItem: DraggableProvided) => (
+                      <StyledToDoItem
+                        ref={dropItem.innerRef}
+                        {...dropItem.draggableProps}
+                        {...dropItem.dragHandleProps}
+                      >
+                        {todo}
+                      </StyledToDoItem>
+                    )}
+                  </Draggable>
+                ))}
+                {dropProps.placeholder}
               </ToDoList>
             )}
           </Droppable>
@@ -157,6 +151,7 @@ const ToDoListWrap = styled.section`
 
 const ToDoList = styled.ul`
   width: 100%;
+  min-height: 200px;
   padding: 12px;
   border-radius: 12px;
   background: ${({ theme }) => theme.backgroundColor01};
