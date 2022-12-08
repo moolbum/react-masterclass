@@ -7,7 +7,6 @@ import {
   COIN_PATH,
   HEADER_LABEL,
   MAIN_PATH,
-  SIGNIN_PATH,
   TODO_LIST_PATH,
 } from "../../../routers/constants";
 
@@ -30,11 +29,6 @@ function Header() {
         <li>
           <button onClick={() => goToPage(COIN_PATH)}>
             {HEADER_LABEL.COIN}
-          </button>
-        </li>
-        <li>
-          <button onClick={() => goToPage(SIGNIN_PATH)}>
-            {HEADER_LABEL.SIGNIN}
           </button>
         </li>
         <li>

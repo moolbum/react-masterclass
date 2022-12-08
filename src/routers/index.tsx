@@ -10,7 +10,6 @@ import NotFound from "../pages/NotFound";
 import User from "../pages/User";
 import Follower from "../pages/User/follower";
 import Root from "../Root";
-import SignIn from "../pages/SignIn";
 import TodoList from "../pages/TodoList";
 import {
   CHART_PATH,
@@ -19,7 +18,6 @@ import {
   HOME_PATH,
   MAIN_PATH,
   PRICE_PATH,
-  SIGNIN_PATH,
   TODO_LIST_PATH,
   USER_PATH,
 } from "./constants";
@@ -45,10 +43,6 @@ const router = createBrowserRouter([
           { path: CHART_PATH, element: <Chart /> },
           { path: PRICE_PATH, element: <Price /> },
         ],
-      },
-      {
-        path: SIGNIN_PATH,
-        element: <SignIn />,
       },
       {
         path: TODO_LIST_PATH,

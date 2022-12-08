@@ -36,7 +36,7 @@ function TodoList() {
       <CreateToDo />
       <TaskInfo>
         <Typo size="h6">
-          {toDoStatus.TODO} {toDo.length} | {toDoStatus.DOING} {doing.length} |
+          {toDoStatus.TODO} {toDo.length} | {toDoStatus.DOING} {doing.length} |{" "}
           {toDoStatus.DONE} {done.length}
         </Typo>
 
