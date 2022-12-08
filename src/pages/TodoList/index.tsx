@@ -6,6 +6,13 @@ import { Categorys, CategoryType } from "../../atoms/type";
 import Typo from "../../components/atoms/Typo";
 import CreateToDo from "./CreateToDo";
 import ToDoItem from "./ToDoItem";
+import {
+  DragDropContext,
+  Draggable,
+  DraggableProvided,
+  Droppable,
+  DroppableProvided,
+} from "react-beautiful-dnd";
 
 const toDoStatus = {
   ALL: "전체",
@@ -30,8 +37,43 @@ function TodoList() {
     setToDoCategory(value as CategoryType);
   };
 
+  const onDragAnd = () => {};
+
   return (
     <ToDoListContainer>
+      <DragDropContext onDragEnd={onDragAnd}>
+        <div>
+          <Droppable droppableId="one">
+            {(dropProps: DroppableProvided) => (
+              <ToDoList ref={dropProps.innerRef} {...dropProps.droppableProps}>
+                <Draggable draggableId="first" index={0}>
+                  {(dropItem: DraggableProvided) => (
+                    <StyledToDoItem
+                      ref={dropItem.innerRef}
+                      {...dropItem.draggableProps}
+                    >
+                      <span {...dropItem.dragHandleProps}>⭐️</span>
+                      One
+                    </StyledToDoItem>
+                  )}
+                </Draggable>
+                <Draggable draggableId="second" index={1}>
+                  {(dropItem: DraggableProvided) => (
+                    <StyledToDoItem
+                      ref={dropItem.innerRef}
+                      {...dropItem.draggableProps}
+                    >
+                      <span {...dropItem.dragHandleProps}>⭐️</span>
+                      Two
+                    </StyledToDoItem>
+                  )}
+                </Draggable>
+              </ToDoList>
+            )}
+          </Droppable>
+        </div>
+      </DragDropContext>
+
       <Typo size="h1">To Dos</Typo>
       <CreateToDo />
       <TaskInfo>
@@ -135,5 +177,27 @@ const TaskInfo = styled.div`
   select {
     padding: 10px;
     border-radius: 8px;
+  }
+`;
+const StyledToDoItem = styled.li`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background: ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.black};
+  box-shadow: 0px 2px 6px rgba(94, 101, 110, 0.2);
+
+  .todo-item-button {
+    display: flex;
+    gap: 10px;
+    button {
+      border-radius: 5px;
+      padding: 5px 10px;
+      box-shadow: 0px 2px 2px rgba(94, 101, 110, 0.2);
+    }
   }
 `;

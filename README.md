@@ -21,7 +21,7 @@
 - State : React-Query, Recoil, Axios
 - style : Styled-components
 - Build : Create React App
-- Other : ApexChart, React-icons
+- Other : ApexChart, React-icons, react-beautiful-dnd
 - Deploy : Vercel
 ```
 
