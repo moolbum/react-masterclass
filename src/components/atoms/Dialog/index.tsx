@@ -1,60 +1,70 @@
 import React, {
   createContext,
+  HTMLAttributes,
   PropsWithChildren,
   useContext,
   useState,
 } from "react";
 import { createPortal } from "react-dom";
 
-interface ModalContextProps {
+interface DialogContextProps {
   isOpen: boolean;
   toggle: (prev: boolean) => void;
 }
 
-const ModalContext = createContext<ModalContextProps>({
+const DialogContext = createContext<DialogContextProps>({
   isOpen: false,
   toggle: (prev) => !prev,
 });
 
 // Toggle;
 function Toggle({ children }: PropsWithChildren) {
-  const { isOpen, toggle } = useContext(ModalContext);
-
-  console.log("ModalContext>>>>", ModalContext);
-  console.log("isOpen>>>>", isOpen);
-  console.log("toggle>>>>", toggle);
+  const { isOpen, toggle } = useContext(DialogContext);
 
   return <button onClick={() => toggle(!isOpen)}>{children}</button>;
 }
 
-// List;
-function List({ children }: PropsWithChildren) {
-  const { isOpen } = useContext(ModalContext);
+function CloseToggle({ children }: PropsWithChildren) {
+  const { toggle } = useContext(DialogContext);
 
-  return isOpen ? createPortal(<ul>{children}</ul>, document.body) : null;
+  return <button onClick={() => toggle(false)}>{children}</button>;
 }
 
-// Item;
-function Item({ children }: PropsWithChildren) {
-  return <li>{children}</li>;
+// Content;
+function Content(props: PropsWithChildren<HTMLAttributes<HTMLDivElement>>) {
+  return <div {...props}>{props.children}</div>;
 }
 
-// Modal Main;
-function Main({
+// Portal;
+function Portal({ children }: PropsWithChildren) {
+  const { isOpen } = useContext(DialogContext);
+
+  return isOpen ? createPortal(<>{children}</>, document.body) : null;
+}
+
+// Overlay;
+function Overlay(props: HTMLAttributes<HTMLDivElement>) {
+  return <div {...props} />;
+}
+
+// DialogMain;
+function DialogMain({
   children,
   defaultOpen = false,
 }: PropsWithChildren<{ defaultOpen?: boolean }>) {
   const [isOpen, toggle] = useState(defaultOpen);
 
   return (
-    <ModalContext.Provider value={{ isOpen, toggle }}>
+    <DialogContext.Provider value={{ isOpen, toggle }}>
       {children}
-    </ModalContext.Provider>
+    </DialogContext.Provider>
   );
 }
 
-export const Dialog = Object.assign(Main, {
+export const Dialog = Object.assign(DialogMain, {
   Toggle: Toggle,
-  List: List,
-  Item: Item,
+  Content: Content,
+  Portal: Portal,
+  Overlay: Overlay,
+  CloseToggle: CloseToggle,
 });
