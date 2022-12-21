@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { decreaseAsync, increaseAsync } from "../../store/sagas/count";
+import { increaseAsync, decreaseAsync } from "../../store/actions/count";
 
 function ReduxSagaStudy() {
   const number = useSelector((state: any) => state.counter);
