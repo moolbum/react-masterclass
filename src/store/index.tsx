@@ -1,5 +1,5 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { all } from "redux-saga/effects";
 import counter from "./reducers/count";
@@ -12,10 +12,10 @@ export function* rootSaga() {
   yield all([counterSaga()]); // all 은 배열 안의 여러 사가를 동시에 실행시켜줍니다.
 }
 
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
-);
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: [sagaMiddleware],
+});
 
 sagaMiddleware.run(rootSaga);
 
