@@ -25,10 +25,10 @@ import {
   USER_PATH,
 } from "./constants";
 import DragAndDrop from "../pages/DragAndDrop";
-import ReduxSagaStudy from "../pages/ReduxSaga";
+import ReduxSagaStudy from "../pages/ReduxSagaStudy";
 import HeadLess from "../pages/Headless";
 
-const router = createBrowserRouter([
+const routers = createBrowserRouter([
   {
     path: MAIN_PATH,
     element: <Root />,
@@ -81,4 +81,4 @@ const router = createBrowserRouter([
   },
 ]);
 
-export default router;
+export default routers;
