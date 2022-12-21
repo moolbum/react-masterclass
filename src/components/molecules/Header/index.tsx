@@ -7,7 +7,9 @@ import {
   COIN_PATH,
   DRAG_AND_DROP_PATH,
   HEADER_LABEL,
+  HEADLESS_PATH,
   MAIN_PATH,
+  REDUX_SAGA_PATH,
   TODO_LIST_PATH,
 } from "../../../routers/constants";
 
@@ -40,6 +42,16 @@ function Header() {
         <li>
           <button onClick={() => goToPage(DRAG_AND_DROP_PATH)}>
             {HEADER_LABEL.DRAG}
+          </button>
+        </li>
+        <li>
+          <button onClick={() => goToPage(REDUX_SAGA_PATH)}>
+            {HEADER_LABEL.REDUX_SAGA}
+          </button>
+        </li>
+        <li>
+          <button onClick={() => goToPage(HEADLESS_PATH)}>
+            {HEADER_LABEL.HEADLESS}
           </button>
         </li>
       </ul>

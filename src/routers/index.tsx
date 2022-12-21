@@ -16,13 +16,17 @@ import {
   COIN_PATH,
   DRAG_AND_DROP_PATH,
   FOLLOWERS_PATH,
+  HEADLESS_PATH,
   HOME_PATH,
   MAIN_PATH,
   PRICE_PATH,
+  REDUX_SAGA_PATH,
   TODO_LIST_PATH,
   USER_PATH,
 } from "./constants";
 import DragAndDrop from "../pages/DragAndDrop";
+import ReduxSagaStudy from "../pages/ReduxSaga";
+import HeadLess from "../pages/Headless";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +49,14 @@ const router = createBrowserRouter([
           { path: CHART_PATH, element: <Chart /> },
           { path: PRICE_PATH, element: <Price /> },
         ],
+      },
+      {
+        path: REDUX_SAGA_PATH,
+        element: <ReduxSagaStudy />,
+      },
+      {
+        path: HEADLESS_PATH,
+        element: <HeadLess />,
       },
       {
         path: TODO_LIST_PATH,

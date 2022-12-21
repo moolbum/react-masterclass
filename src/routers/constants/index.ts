@@ -7,6 +7,8 @@ export const HEADER_LABEL = {
   COIN: "Coin",
   TODOLIST: "TodoList",
   DRAG: "Drag",
+  REDUX_SAGA: "ReduxSaga",
+  HEADLESS: "Headless",
 };
 
 // coin page
@@ -17,6 +19,12 @@ export const PRICE_PATH = "price";
 // todo list page
 export const TODO_LIST_PATH = "/todo_list";
 export const DRAG_AND_DROP_PATH = "/drag";
+
+// redux-saga study page
+export const REDUX_SAGA_PATH = "/redux-saga";
+
+// headless study
+export const HEADLESS_PATH = "/headless";
 
 // users page
 export const USER_PATH = "/users";
