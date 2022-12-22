@@ -56,12 +56,8 @@ function DialogToggle({
     DialogContext as React.Context<DialogContextProps>
   );
 
-  console.log("isOpen  >>>>", isOpen);
-  console.log("toggle >>>>", toggle);
-
   const handleOnClick = () => {
     if (onClick) onClick();
-    toggle(!isOpen);
   };
 
   return (

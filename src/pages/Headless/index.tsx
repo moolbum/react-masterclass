@@ -7,24 +7,25 @@ function HeadLess() {
   const [open, setOpen] = useState(false);
 
   const handleClickDialog = () => {
-    console.log("클릭이라네~~~");
+    console.log("오픈>>>>");
 
     setOpen((prev) => !prev);
   };
 
   const handleConfirmClick = () => {
     setTimeout(() => {
-      console.log("클릭>>>>");
-    }, 3000);
+      console.log("확인클릭>>>>");
+      setOpen(false);
+    }, 1500);
   };
-
-  console.log("open>>>>", open);
 
   return (
     <div>
       <Title>합성 컴포넌트</Title>
 
-      <button onClick={handleClickDialog}>여기도 버튼이라네~</button>
+      <Section>
+        <button onClick={handleClickDialog}>여기도 버튼이라네~</button>
+      </Section>
 
       <Section>
         {/* {Dialog} */}
