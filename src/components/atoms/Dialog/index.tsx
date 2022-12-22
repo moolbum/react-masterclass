@@ -13,7 +13,9 @@ interface DialogContextProps {
 }
 
 interface DialogProps {
+  open?: boolean;
   defaultOpen?: boolean;
+  onOpenChange?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface DialogToggleProps {
@@ -27,12 +29,19 @@ export const DialogContext = createContext<DialogContextProps | undefined>(
 /** Dialog Main 최상단 컴포넌트*/
 function DialogMain({
   children,
+  open,
+  onOpenChange,
   defaultOpen = false,
 }: PropsWithChildren<DialogProps>) {
-  const [isOpen, toggle] = useState(defaultOpen);
+  const [isOpenDialog, setIsOpenDialog] = useState(defaultOpen);
 
   return (
-    <DialogContext.Provider value={{ isOpen, toggle }}>
+    <DialogContext.Provider
+      value={{
+        isOpen: open ? open : isOpenDialog,
+        toggle: onOpenChange ? onOpenChange : setIsOpenDialog,
+      }}
+    >
       {children}
     </DialogContext.Provider>
   );
@@ -46,6 +55,9 @@ function DialogToggle({
   const { isOpen, toggle } = useContext(
     DialogContext as React.Context<DialogContextProps>
   );
+
+  console.log("isOpen  >>>>", isOpen);
+  console.log("toggle >>>>", toggle);
 
   const handleOnClick = () => {
     if (onClick) onClick();

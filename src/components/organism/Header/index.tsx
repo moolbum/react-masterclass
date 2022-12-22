@@ -21,6 +21,10 @@ function Header() {
     navigate(url);
   };
 
+  const handleDarkModeClick = () => {
+    setIsDarkMode((prev) => !prev);
+  };
+
   return (
     <HeaerContainer>
       <ul>
@@ -55,7 +59,7 @@ function Header() {
           </button>
         </li>
       </ul>
-      <button type="button" onClick={() => setIsDarkMode((prev) => !prev)}>
+      <button type="button" onClick={handleDarkModeClick}>
         {isDarkMode ? "DarkMode" : "LightMode"}
       </button>
     </HeaerContainer>

@@ -1,20 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { AlertDialog } from "../../components/atoms/AlertDialog";
 import { Dialog } from "../../components/atoms/Dialog";
 
 function HeadLess() {
-  const handleConfirmClick = () => {
-    console.log("클릭>>>>");
+  const [open, setOpen] = useState(false);
+
+  const handleClickDialog = () => {
+    console.log("클릭이라네~~~");
+
+    setOpen((prev) => !prev);
   };
+
+  const handleConfirmClick = () => {
+    setTimeout(() => {
+      console.log("클릭>>>>");
+    }, 3000);
+  };
+
+  console.log("open>>>>", open);
 
   return (
     <div>
       <Title>합성 컴포넌트</Title>
 
+      <button onClick={handleClickDialog}>여기도 버튼이라네~</button>
+
       <Section>
         {/* {Dialog} */}
-        <Dialog>
+        <Dialog open={open} onOpenChange={handleClickDialog}>
           Dialog 테스트
           <Dialog.Toggle>Dialog 열기 버튼</Dialog.Toggle>
           <Dialog.Portal>
@@ -34,30 +48,6 @@ function HeadLess() {
             </Content>
           </Dialog.Portal>
         </Dialog>
-      </Section>
-
-      <Section>
-        {/* {AlertDialog} */}
-        <AlertDialog>
-          Alert Dialog 테스트
-          <AlertDialog.Toggle>Alert 열기 버튼</AlertDialog.Toggle>
-          <AlertDialog.Portal>
-            <AlertDialogOverlay />
-            <Content>
-              <div className="content-container">
-                <AlertDialogTitle>Alert 다이얼로그 (모달)</AlertDialogTitle>
-                <p>꼭 읽으세요</p>
-
-                <div className="content-toggle-container">
-                  <AlertDialog.Toggle onClick={handleConfirmClick}>
-                    확인
-                  </AlertDialog.Toggle>
-                  <AlertDialog.CloseToggle>닫기</AlertDialog.CloseToggle>
-                </div>
-              </div>
-            </Content>
-          </AlertDialog.Portal>
-        </AlertDialog>
       </Section>
     </div>
   );
