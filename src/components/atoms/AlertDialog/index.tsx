@@ -9,7 +9,7 @@ import { createPortal } from "react-dom";
 
 interface DialogContextProps {
   isOpen: boolean;
-  toggle: (prev: boolean) => void;
+  setIsOpen: (prev: boolean) => void;
 }
 
 interface DialogProps {
@@ -18,7 +18,7 @@ interface DialogProps {
 
 const DialogContext = createContext<DialogContextProps>({
   isOpen: false,
-  toggle: (prev) => !prev,
+  setIsOpen: (prev) => !prev,
 });
 
 /** Dialog Main 최상단 컴포넌트*/
@@ -26,10 +26,10 @@ function DialogMain({
   children,
   defaultOpen = false,
 }: PropsWithChildren<DialogProps>) {
-  const [isOpen, toggle] = useState(defaultOpen);
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <DialogContext.Provider value={{ isOpen, toggle }}>
+    <DialogContext.Provider value={{ isOpen, setIsOpen }}>
       {children}
     </DialogContext.Provider>
   );
@@ -37,16 +37,16 @@ function DialogMain({
 
 /** Dialog Toggle  */
 function DialogToggle({ children }: PropsWithChildren) {
-  const { isOpen, toggle } = useContext(DialogContext);
+  const { isOpen, setIsOpen } = useContext(DialogContext);
 
-  return <button onClick={() => toggle(!isOpen)}>{children}</button>;
+  return <button onClick={() => setIsOpen(!isOpen)}>{children}</button>;
 }
 
 /** Dialog Toggle */
 function DialogCloseToggle({ children }: PropsWithChildren) {
-  const { toggle } = useContext(DialogContext);
+  const { setIsOpen } = useContext(DialogContext);
 
-  return <button onClick={() => toggle(false)}>{children}</button>;
+  return <button onClick={() => setIsOpen(false)}>{children}</button>;
 }
 
 /** Dialog Portal */
@@ -58,9 +58,7 @@ function DialogPortal({ children }: PropsWithChildren) {
 
 /** Dialog Overlay */
 function DialogOverlay(props: HTMLAttributes<HTMLDivElement>) {
-  const { toggle } = useContext(DialogContext);
-
-  return <div {...props} onClick={() => toggle(false)} />;
+  return <div {...props} />;
 }
 
 /** Dialog Content */

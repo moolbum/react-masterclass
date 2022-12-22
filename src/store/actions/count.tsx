@@ -1,4 +1,3 @@
-export type Action<T> = { type: T };
 export type Count = typeof INCREASE | typeof DECREASE;
 
 export const INCREASE = "INCREASE";

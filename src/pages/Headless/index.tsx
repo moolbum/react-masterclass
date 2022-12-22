@@ -7,57 +7,48 @@ function HeadLess() {
     <div>
       <h2>합성 컴포넌트</h2>
 
-      <Dialog1>
+      <Dialog>
         Dialog 테스트
-        <Toggle1>Dialog 토글 버튼</Toggle1>
+        <Dialog.Toggle>Dialog 토글 버튼</Dialog.Toggle>
         <Dialog.Portal>
           <Overlay />
           <Content>
-            Dialog 아이템 111
-            <Dialog2>
-              Dialog 테스트 22222
-              <Toggle2>Dialog 토글 버튼</Toggle2>
-              <Dialog.Portal>
-                <Overlay2 />
-                <Content>
-                  Dialog 아이템 222222
-                  <Toggle1>Dialog 닫기 버튼</Toggle1>
-                </Content>
-              </Dialog.Portal>
-            </Dialog2>
-            <Dialog.Toggle>Dialog 닫기 버튼</Dialog.Toggle>
+            <div className="content-container">
+              <h2>다이얼로그 (모달)</h2>
+              <p>세상에 드디어 마참내</p>
+              <Dialog.Toggle>Dialog 닫기 버튼</Dialog.Toggle>
+            </div>
           </Content>
         </Dialog.Portal>
-      </Dialog1>
+      </Dialog>
     </div>
   );
 }
 
 export default HeadLess;
-const Dialog1 = styled(Dialog)``;
-const Dialog2 = styled(Dialog)``;
-const Toggle1 = styled(Dialog.Toggle)``;
-const Toggle2 = styled(Dialog.Toggle)``;
 
 const Overlay = styled(Dialog.Overlay)`
   position: fixed;
   inset: 0;
-  background-color: tomato;
-  width: 100%;
-  height: 100vh;
-`;
-
-const Overlay2 = styled(Dialog.Overlay)`
-  position: fixed;
-  inset: 0;
-  background-color: green;
+  background: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100vh;
 `;
 
 const Content = styled(Dialog.Content)`
   position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100vh;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 600px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #1e1e1e;
+  }
 `;
