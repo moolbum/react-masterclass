@@ -9,17 +9,20 @@ import { createPortal } from "react-dom";
 
 interface DialogContextProps {
   isOpen: boolean;
-  toggle: (prev: boolean) => void;
+  toggle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface DialogProps {
   defaultOpen?: boolean;
 }
 
-const DialogContext = createContext<DialogContextProps>({
-  isOpen: false,
-  toggle: (prev) => !prev,
-});
+interface DialogToggleProps {
+  onChange?: () => void;
+}
+
+export const DialogContext = createContext<DialogContextProps | undefined>(
+  undefined
+);
 
 /** Dialog Main 최상단 컴포넌트*/
 function DialogMain({
@@ -36,29 +39,50 @@ function DialogMain({
 }
 
 /** Dialog Toggle  */
-function DialogToggle({ children }: PropsWithChildren) {
-  const { isOpen, toggle } = useContext(DialogContext);
+function DialogToggle({
+  children,
+  onChange,
+}: PropsWithChildren<DialogToggleProps>) {
+  const { isOpen, toggle } = useContext(
+    DialogContext as React.Context<DialogContextProps>
+  );
 
-  return <button onClick={() => toggle(!isOpen)}>{children}</button>;
+  console.log("toggle isOpen >>>", isOpen);
+  const handleOnChange = () => {
+    if (onChange) onChange();
+    toggle(!isOpen);
+  };
+
+  return (
+    <button onClick={() => (onChange ? handleOnChange() : toggle(!isOpen))}>
+      {children}
+    </button>
+  );
 }
 
 /** Dialog Toggle */
 function DialogCloseToggle({ children }: PropsWithChildren) {
-  const { toggle } = useContext(DialogContext);
+  const { toggle } = useContext(
+    DialogContext as React.Context<DialogContextProps>
+  );
 
   return <button onClick={() => toggle(false)}>{children}</button>;
 }
 
 /** Dialog Portal */
 function DialogPortal({ children }: PropsWithChildren) {
-  const { isOpen } = useContext(DialogContext);
+  const { isOpen } = useContext(
+    DialogContext as React.Context<DialogContextProps>
+  );
 
   return isOpen ? createPortal(<>{children}</>, document.body) : null;
 }
 
 /** Dialog Overlay */
 function DialogOverlay(props: HTMLAttributes<HTMLDivElement>) {
-  const { toggle } = useContext(DialogContext);
+  const { toggle } = useContext(
+    DialogContext as React.Context<DialogContextProps>
+  );
 
   return <div {...props} onClick={() => toggle(false)} />;
 }
