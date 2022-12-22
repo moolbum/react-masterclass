@@ -2,7 +2,9 @@ import React, {
   createContext,
   HTMLAttributes,
   PropsWithChildren,
+  useCallback,
   useContext,
+  useMemo,
   useState,
 } from "react";
 import { createPortal } from "react-dom";
@@ -31,19 +33,31 @@ function DialogMain({
   children,
   open,
   onOpenChange,
-  defaultOpen = false,
 }: PropsWithChildren<DialogProps>) {
-  const [isOpenDialog, setIsOpenDialog] = useState(defaultOpen);
+  const [innerDefaultOpenState, setInnerDefaultOpenState] =
+    useState<boolean>(false);
+
+  const handleToggle = useCallback(() => {
+    if (open === undefined) {
+      if (onOpenChange === undefined) {
+        return setInnerDefaultOpenState((prev) => !prev);
+      } else {
+        return onOpenChange(!innerDefaultOpenState);
+      }
+    } else {
+      if (onOpenChange) return onOpenChange(!open);
+    }
+  }, [innerDefaultOpenState, onOpenChange, open]);
+
+  const values = useMemo(() => {
+    return {
+      isOpen: open === undefined ? innerDefaultOpenState : open,
+      toggle: handleToggle,
+    };
+  }, [handleToggle, open, innerDefaultOpenState]);
 
   return (
-    <DialogContext.Provider
-      value={{
-        isOpen: open ? open : isOpenDialog,
-        toggle: onOpenChange ? onOpenChange : setIsOpenDialog,
-      }}
-    >
-      {children}
-    </DialogContext.Provider>
+    <DialogContext.Provider value={values}>{children}</DialogContext.Provider>
   );
 }
 
