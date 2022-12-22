@@ -17,7 +17,7 @@ interface DialogProps {
 }
 
 interface DialogToggleProps {
-  onChange?: () => void;
+  onClick?: () => void;
 }
 
 export const DialogContext = createContext<DialogContextProps | undefined>(
@@ -41,27 +41,26 @@ function DialogMain({
 /** Dialog Toggle  */
 function DialogToggle({
   children,
-  onChange,
+  onClick,
 }: PropsWithChildren<DialogToggleProps>) {
   const { isOpen, toggle } = useContext(
     DialogContext as React.Context<DialogContextProps>
   );
 
-  console.log("toggle isOpen >>>", isOpen);
-  const handleOnChange = () => {
-    if (onChange) onChange();
+  const handleOnClick = () => {
+    if (onClick) onClick();
     toggle(!isOpen);
   };
 
   return (
-    <button onClick={() => (onChange ? handleOnChange() : toggle(!isOpen))}>
+    <button onClick={() => (onClick ? handleOnClick() : toggle(!isOpen))}>
       {children}
     </button>
   );
 }
 
 /** Dialog Toggle */
-function DialogCloseToggle({ children }: PropsWithChildren) {
+export function DialogCloseToggle({ children }: PropsWithChildren) {
   const { toggle } = useContext(
     DialogContext as React.Context<DialogContextProps>
   );
@@ -70,7 +69,7 @@ function DialogCloseToggle({ children }: PropsWithChildren) {
 }
 
 /** Dialog Portal */
-function DialogPortal({ children }: PropsWithChildren) {
+export function DialogPortal({ children }: PropsWithChildren) {
   const { isOpen } = useContext(
     DialogContext as React.Context<DialogContextProps>
   );
@@ -79,7 +78,7 @@ function DialogPortal({ children }: PropsWithChildren) {
 }
 
 /** Dialog Overlay */
-function DialogOverlay(props: HTMLAttributes<HTMLDivElement>) {
+export function DialogOverlay(props: HTMLAttributes<HTMLDivElement>) {
   const { toggle } = useContext(
     DialogContext as React.Context<DialogContextProps>
   );
@@ -88,7 +87,7 @@ function DialogOverlay(props: HTMLAttributes<HTMLDivElement>) {
 }
 
 /** Dialog Content */
-function DialogContent(
+export function DialogContent(
   props: PropsWithChildren<HTMLAttributes<HTMLDivElement>>
 ) {
   return <div {...props}>{props.children}</div>;

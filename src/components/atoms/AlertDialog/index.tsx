@@ -6,72 +6,94 @@ import React, {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
+import { Dialog } from "../Dialog";
 
-interface DialogContextProps {
+interface AlertDialogContextProps {
   isOpen: boolean;
-  setIsOpen: (prev: boolean) => void;
+  toggle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-interface DialogProps {
+interface AlertDialogProps {
   defaultOpen?: boolean;
 }
 
-const DialogContext = createContext<DialogContextProps>({
-  isOpen: false,
-  setIsOpen: (prev) => !prev,
-});
+interface AlertDialogToggleProps {
+  onClick?: () => void;
+}
 
-/** Dialog Main 최상단 컴포넌트*/
-function DialogMain({
+export const AlertDialogContext = createContext<
+  AlertDialogContextProps | undefined
+>(undefined);
+
+/** AlertDialog Main 최상단 컴포넌트*/
+function AlertDialogMain({
   children,
   defaultOpen = false,
-}: PropsWithChildren<DialogProps>) {
-  const [isOpen, setIsOpen] = useState(defaultOpen);
+}: PropsWithChildren<AlertDialogProps>) {
+  const [isOpen, toggle] = useState(defaultOpen);
 
   return (
-    <DialogContext.Provider value={{ isOpen, setIsOpen }}>
+    <AlertDialogContext.Provider value={{ isOpen, toggle }}>
       {children}
-    </DialogContext.Provider>
+    </AlertDialogContext.Provider>
   );
 }
 
-/** Dialog Toggle  */
-function DialogToggle({ children }: PropsWithChildren) {
-  const { isOpen, setIsOpen } = useContext(DialogContext);
+/** AlertDialog Toggle  */
+function AlertDialogToggle({
+  children,
+  onClick,
+}: PropsWithChildren<AlertDialogToggleProps>) {
+  const { isOpen, toggle } = useContext(
+    AlertDialogContext as React.Context<AlertDialogContextProps>
+  );
 
-  return <button onClick={() => setIsOpen(!isOpen)}>{children}</button>;
+  const handleOnClick = () => {
+    if (onClick) onClick();
+    toggle(!isOpen);
+  };
+
+  return (
+    <button onClick={() => (onClick ? handleOnClick() : toggle(!isOpen))}>
+      {children}
+    </button>
+  );
 }
 
-/** Dialog Toggle */
-function DialogCloseToggle({ children }: PropsWithChildren) {
-  const { setIsOpen } = useContext(DialogContext);
+/** AlertDialog Toggle */
+export function AlertDialogCloseToggle({ children }: PropsWithChildren) {
+  const { toggle } = useContext(
+    AlertDialogContext as React.Context<AlertDialogContextProps>
+  );
 
-  return <button onClick={() => setIsOpen(false)}>{children}</button>;
+  return <button onClick={() => toggle(false)}>{children}</button>;
 }
 
-/** Dialog Portal */
-function DialogPortal({ children }: PropsWithChildren) {
-  const { isOpen } = useContext(DialogContext);
+/** AlertDialog Portal */
+export function AlertDialogPortal({ children }: PropsWithChildren) {
+  const { isOpen } = useContext(
+    AlertDialogContext as React.Context<AlertDialogContextProps>
+  );
 
   return isOpen ? createPortal(<>{children}</>, document.body) : null;
 }
 
-/** Dialog Overlay */
-function DialogOverlay(props: HTMLAttributes<HTMLDivElement>) {
+/** AlertDialog Overlay */
+export function AlertDialogOverlay(props: HTMLAttributes<HTMLDivElement>) {
   return <div {...props} />;
 }
 
-/** Dialog Content */
-function DialogContent(
+/** AlertDialog Content */
+export function AlertDialogContent(
   props: PropsWithChildren<HTMLAttributes<HTMLDivElement>>
 ) {
-  return <div {...props}>{props.children}</div>;
+  return <Dialog.Content {...props}>{props.children}</Dialog.Content>;
 }
 
-export const Dialog = Object.assign(DialogMain, {
-  Toggle: DialogToggle,
-  Content: DialogContent,
-  Portal: DialogPortal,
-  Overlay: DialogOverlay,
-  CloseToggle: DialogCloseToggle,
+export const AlertDialog = Object.assign(AlertDialogMain, {
+  Toggle: AlertDialogToggle,
+  Content: AlertDialogContent,
+  Portal: AlertDialogPortal,
+  Overlay: AlertDialogOverlay,
+  CloseToggle: AlertDialogCloseToggle,
 });
