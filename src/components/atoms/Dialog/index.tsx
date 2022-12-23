@@ -2,12 +2,11 @@ import React, {
   createContext,
   HTMLAttributes,
   PropsWithChildren,
-  useCallback,
   useContext,
-  useMemo,
   useState,
 } from "react";
 import { createPortal } from "react-dom";
+import useToggleProvider from "../../../hooks/useToggleProvider";
 
 interface DialogContextProps {
   isOpen: boolean;
@@ -34,27 +33,12 @@ function DialogMain({
   open,
   onOpenChange,
 }: PropsWithChildren<DialogProps>) {
-  const [innerDefaultOpenState, setInnerDefaultOpenState] =
-    useState<boolean>(false);
+  const [defaultOpenState, setDefaultOpenState] = useState<boolean>(false);
 
-  const handleToggle = useCallback(() => {
-    if (open === undefined) {
-      if (onOpenChange === undefined) {
-        return setInnerDefaultOpenState((prev) => !prev);
-      } else {
-        return onOpenChange(!innerDefaultOpenState);
-      }
-    } else {
-      if (onOpenChange) return onOpenChange(!open);
-    }
-  }, [innerDefaultOpenState, onOpenChange, open]);
-
-  const values = useMemo(() => {
-    return {
-      isOpen: open === undefined ? innerDefaultOpenState : open,
-      toggle: handleToggle,
-    };
-  }, [handleToggle, open, innerDefaultOpenState]);
+  const { values } = useToggleProvider({
+    open: open ?? defaultOpenState,
+    onOpenChange: onOpenChange ?? setDefaultOpenState,
+  });
 
   return (
     <DialogContext.Provider value={values}>{children}</DialogContext.Provider>
