@@ -70,15 +70,13 @@ function DialogToggle({
     DialogContext as React.Context<DialogContextProps>
   );
 
-  const handleOnClick = () => {
-    if (onClick) onClick();
+  const handleClick = () => {
+    if (onClick !== undefined) {
+      return onClick();
+    } else toggle(!isOpen);
   };
 
-  return (
-    <button onClick={() => (onClick ? handleOnClick() : toggle(!isOpen))}>
-      {children}
-    </button>
-  );
+  return <button onClick={handleClick}>{children}</button>;
 }
 
 /** Dialog Toggle */
