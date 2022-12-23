@@ -30,14 +30,12 @@ export const DialogContext = createContext<DialogContextProps | undefined>(
 /** Dialog Main 최상단 컴포넌트*/
 function DialogMain({
   children,
-  open,
-  onOpenChange,
+  open = undefined,
+  onOpenChange = undefined,
 }: PropsWithChildren<DialogProps>) {
-  const [defaultOpenState, setDefaultOpenState] = useState<boolean>(false);
-
   const { values } = useToggleProvider({
-    open: open ?? defaultOpenState,
-    onOpenChange: onOpenChange ?? setDefaultOpenState,
+    open: open,
+    onOpenChange: onOpenChange,
   });
 
   return (

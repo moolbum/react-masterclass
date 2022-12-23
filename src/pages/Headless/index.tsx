@@ -20,7 +20,7 @@ function HeadLess() {
 
   const renderDialog = () => {
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog>
         Dialog 테스트
         <Dialog.Toggle>Dialog 열기 버튼</Dialog.Toggle>
         <Dialog.Portal>
@@ -31,7 +31,7 @@ function HeadLess() {
               <p>세상에 즐겁다 마참내</p>
 
               <div className="content-toggle-container">
-                <Dialog.Toggle onClick={handleConfirmClick}>확인</Dialog.Toggle>
+                <Dialog.Toggle>확인</Dialog.Toggle>
                 <Dialog.CloseToggle>닫기</Dialog.CloseToggle>
               </div>
             </div>
