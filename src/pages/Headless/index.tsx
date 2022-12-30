@@ -18,29 +18,6 @@ function HeadLess() {
     }, 1500);
   };
 
-  const renderDialog = () => {
-    return (
-      <Dialog>
-        Dialog 테스트
-        <Dialog.Toggle>Dialog 열기 버튼</Dialog.Toggle>
-        <Dialog.Portal>
-          <Overlay />
-          <Content>
-            <div className="content-container">
-              <h2>다이얼로그 (모달)</h2>
-              <p>세상에 즐겁다 마참내</p>
-
-              <div className="content-toggle-container">
-                <Dialog.Toggle>확인</Dialog.Toggle>
-                <Dialog.CloseToggle>닫기</Dialog.CloseToggle>
-              </div>
-            </div>
-          </Content>
-        </Dialog.Portal>
-      </Dialog>
-    );
-  };
-
   return (
     <div>
       <Title>합성 컴포넌트</Title>
@@ -48,7 +25,28 @@ function HeadLess() {
         <button onClick={handleClickDialog}>여기도 버튼이라네~</button>
       </Section>
 
-      <Section>{renderDialog()}</Section>
+      <Section>
+        <Dialog open={open} onOpenChange={handleClickDialog}>
+          Dialog 테스트
+          <Dialog.Toggle>Dialog 열기 버튼</Dialog.Toggle>
+          <Dialog.Portal>
+            <Overlay />
+            <Content>
+              <div className="content-container">
+                <h2>다이얼로그 (모달)</h2>
+                <p>세상에 즐겁다 마참내</p>
+
+                <div className="content-toggle-container">
+                  <Dialog.Toggle onClick={handleConfirmClick}>
+                    확인
+                  </Dialog.Toggle>
+                  <Dialog.CloseToggle>닫기</Dialog.CloseToggle>
+                </div>
+              </div>
+            </Content>
+          </Dialog.Portal>
+        </Dialog>
+      </Section>
     </div>
   );
 }
