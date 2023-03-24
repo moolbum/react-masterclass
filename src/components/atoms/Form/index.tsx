@@ -39,9 +39,19 @@ interface FormControlProps
   extends DetailedHTMLProps<
     InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
-  > {}
+  > {
+  asChild?: boolean;
+}
 
-function FormControl({ ...rest }: FormControlProps) {
+function FormControl({
+  children,
+  asChild,
+  ...rest
+}: PropsWithChildren<FormControlProps>) {
+  if (asChild || children) {
+    return <div {...rest}>{children}</div>;
+  }
+
   return <input {...rest} />;
 }
 
