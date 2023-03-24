@@ -4,29 +4,22 @@ import Coin from "../pages/Coin";
 import CoinDetail from "../pages/CoinDetail";
 import Chart from "../pages/Chart";
 import Price from "../pages/Price";
-import ErrorComponent from "../pages/ErrorComponent";
-import Home from "../pages/Home";
 import NotFound from "../pages/NotFound";
-import User from "../pages/User";
-import Follower from "../pages/User/follower";
 import Root from "../Root";
 import TodoList from "../pages/TodoList";
 import {
   CHART_PATH,
   COIN_PATH,
   DRAG_AND_DROP_PATH,
-  FOLLOWERS_PATH,
+  HEADLESS_FORM_PATH,
   HEADLESS_PATH,
-  HOME_PATH,
   MAIN_PATH,
   PRICE_PATH,
-  REDUX_SAGA_PATH,
   TODO_LIST_PATH,
-  USER_PATH,
 } from "./constants";
 import DragAndDrop from "../pages/DragAndDrop";
-import ReduxSagaStudy from "../pages/ReduxSagaStudy";
 import HeadLess from "../pages/Headless";
+import Form from "../pages/Form";
 
 const routers = createBrowserRouter([
   {
@@ -34,9 +27,8 @@ const routers = createBrowserRouter([
     element: <Root />,
     children: [
       {
-        path: HOME_PATH,
-        element: <Home />,
-        errorElement: <ErrorComponent />,
+        path: MAIN_PATH,
+        element: <Coin />,
       },
       {
         path: COIN_PATH,
@@ -51,10 +43,6 @@ const routers = createBrowserRouter([
         ],
       },
       {
-        path: REDUX_SAGA_PATH,
-        element: <ReduxSagaStudy />,
-      },
-      {
         path: HEADLESS_PATH,
         element: <HeadLess />,
       },
@@ -67,14 +55,8 @@ const routers = createBrowserRouter([
         element: <DragAndDrop />,
       },
       {
-        path: `${USER_PATH}/:id`,
-        element: <User />,
-        children: [
-          {
-            path: FOLLOWERS_PATH,
-            element: <Follower />,
-          },
-        ],
+        path: HEADLESS_FORM_PATH,
+        element: <Form />,
       },
     ],
     errorElement: <NotFound />,

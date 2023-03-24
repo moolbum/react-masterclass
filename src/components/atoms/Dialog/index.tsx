@@ -3,7 +3,6 @@ import React, {
   HTMLAttributes,
   PropsWithChildren,
   useContext,
-  useState,
 } from "react";
 import { createPortal } from "react-dom";
 import useToggleProvider from "../../../hooks/useToggleProvider";
