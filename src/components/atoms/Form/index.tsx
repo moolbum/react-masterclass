@@ -2,6 +2,7 @@ import React, {
   ButtonHTMLAttributes,
   DetailedHTMLProps,
   FormHTMLAttributes,
+  HTMLAttributes,
   InputHTMLAttributes,
   LabelHTMLAttributes,
   PropsWithChildren,
@@ -15,6 +16,13 @@ interface FormRootProps
 
 function FormRoot({ children, ...rest }: PropsWithChildren<FormRootProps>) {
   return <form {...rest}>{children}</form>;
+}
+
+interface FormFieldProps
+  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
+
+function FormField({ children, ...rest }: PropsWithChildren<FormFieldProps>) {
+  return <div {...rest}>{children}</div>;
 }
 
 interface FormLabelProps
@@ -33,8 +41,8 @@ interface FormControlProps
     HTMLInputElement
   > {}
 
-function FormControl(props: FormControlProps) {
-  return <input {...props} />;
+function FormControl({ ...rest }: FormControlProps) {
+  return <input {...rest} />;
 }
 
 interface FormSubmitProps
@@ -52,6 +60,7 @@ function FormSubmit({ children, ...rest }: PropsWithChildren<FormSubmitProps>) {
 }
 
 export const Form = Object.assign(FormRoot, {
+  Field: FormField,
   Label: FormLabel,
   Control: FormControl,
   Submit: FormSubmit,
