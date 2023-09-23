@@ -50,11 +50,6 @@ function Header() {
           </button>
         </li>
         <li>
-          <button onClick={() => goToPage(REDUX_SAGA_PATH)}>
-            {HEADER_LABEL.REDUX_SAGA}
-          </button>
-        </li>
-        <li>
           <button onClick={() => goToPage(HEADLESS_PATH)}>
             {HEADER_LABEL.HEADLESS}
           </button>

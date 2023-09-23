@@ -1,4 +1,9 @@
-import React, { ButtonHTMLAttributes, forwardRef, useRef } from "react";
+import React, {
+  ButtonHTMLAttributes,
+  forwardRef,
+  useEffect,
+  useRef,
+} from "react";
 
 interface TabItemProps<T> extends ButtonHTMLAttributes<HTMLButtonElement> {
   tabValue: T;
@@ -9,6 +14,10 @@ const TabItem = forwardRef<HTMLButtonElement, TabItemProps<any>>(
   (props, ref) => {
     const buttonRef = useRef<HTMLButtonElement>();
     const { tabValue, onFocusItem, onFocus, onKeyDown, ...restProps } = props;
+
+    useEffect(() => {
+      buttonRef.current?.focus();
+    }, []);
 
     return (
       <button
