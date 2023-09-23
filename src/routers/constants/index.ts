@@ -9,6 +9,7 @@ export const HEADER_LABEL = {
   DRAG: "Drag",
   REDUX_SAGA: "ReduxSaga",
   HEADLESS: "Headless",
+  TABS: "Tabs",
 };
 
 // coin page
@@ -29,3 +30,6 @@ export const HEADLESS_PATH = "/headless";
 // users page
 export const USER_PATH = "/users";
 export const FOLLOWERS_PATH = "followers";
+
+// Tabs
+export const TABS_PATH = "/tabs";

@@ -21,17 +21,20 @@ import {
   MAIN_PATH,
   PRICE_PATH,
   REDUX_SAGA_PATH,
+  TABS_PATH,
   TODO_LIST_PATH,
   USER_PATH,
 } from "./constants";
 import DragAndDrop from "../pages/DragAndDrop";
 import ReduxSagaStudy from "../pages/ReduxSagaStudy";
 import HeadLess from "../pages/Headless";
+import Tabs from "../pages/Tabs";
 
 const routers = createBrowserRouter([
   {
     path: MAIN_PATH,
     element: <Root />,
+    errorElement: <NotFound />,
     children: [
       {
         path: HOME_PATH,
@@ -63,6 +66,10 @@ const routers = createBrowserRouter([
         element: <TodoList />,
       },
       {
+        path: TABS_PATH,
+        element: <Tabs />,
+      },
+      {
         path: DRAG_AND_DROP_PATH,
         element: <DragAndDrop />,
       },
@@ -77,7 +84,6 @@ const routers = createBrowserRouter([
         ],
       },
     ],
-    errorElement: <NotFound />,
   },
 ]);
 

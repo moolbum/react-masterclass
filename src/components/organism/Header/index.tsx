@@ -10,6 +10,7 @@ import {
   HEADLESS_PATH,
   MAIN_PATH,
   REDUX_SAGA_PATH,
+  TABS_PATH,
   TODO_LIST_PATH,
 } from "../../../routers/constants";
 
@@ -56,6 +57,11 @@ function Header() {
         <li>
           <button onClick={() => goToPage(HEADLESS_PATH)}>
             {HEADER_LABEL.HEADLESS}
+          </button>
+        </li>
+        <li>
+          <button onClick={() => goToPage(TABS_PATH)}>
+            {HEADER_LABEL.TABS}
           </button>
         </li>
       </ul>
