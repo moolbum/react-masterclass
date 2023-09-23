@@ -134,10 +134,5 @@ const StyledToDoItem = styled.li`
   .todo-item-button {
     display: flex;
     gap: 10px;
-    button {
-      border-radius: 5px;
-      padding: 5px 10px;
-      box-shadow: 0px 2px 2px rgba(94, 101, 110, 0.2);
-    }
   }
 `;
