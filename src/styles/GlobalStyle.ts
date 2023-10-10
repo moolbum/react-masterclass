@@ -10,6 +10,8 @@ const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.textColor}
   }
 
+  
+
   a{
     text-decoration:none;
     color:inherit ;
@@ -27,12 +29,7 @@ const GlobalStyle = createGlobalStyle`
 
   button{
     cursor: pointer;
-    transition:0.2s all;
-
-    &:active{
-      scale:0.98;
-      transform:translateY(2px) ;
-    }
+    
   }
 
   select {

@@ -11,20 +11,21 @@ import {
   CHART_PATH,
   COIN_PATH,
   DRAG_AND_DROP_PATH,
-  HEADLESS_FORM_PATH,
   HEADLESS_PATH,
   MAIN_PATH,
   PRICE_PATH,
+  TABS_PATH,
   TODO_LIST_PATH,
 } from "./constants";
 import DragAndDrop from "../pages/DragAndDrop";
 import HeadLess from "../pages/Headless";
-import Form from "../pages/Form";
+import Tabs from "../pages/Tabs";
 
 const routers = createBrowserRouter([
   {
     path: MAIN_PATH,
     element: <Root />,
+    errorElement: <NotFound />,
     children: [
       {
         path: COIN_PATH,
@@ -47,15 +48,14 @@ const routers = createBrowserRouter([
         element: <TodoList />,
       },
       {
+        path: TABS_PATH,
+        element: <Tabs />,
+      },
+      {
         path: DRAG_AND_DROP_PATH,
         element: <DragAndDrop />,
       },
-      {
-        path: HEADLESS_FORM_PATH,
-        element: <Form />,
-      },
     ],
-    errorElement: <NotFound />,
   },
 ]);
 

@@ -7,9 +7,10 @@ import {
   COIN_PATH,
   DRAG_AND_DROP_PATH,
   HEADER_LABEL,
-  HEADLESS_FORM_PATH,
   HEADLESS_PATH,
   MAIN_PATH,
+  REDUX_SAGA_PATH,
+  TABS_PATH,
   TODO_LIST_PATH,
 } from "../../../routers/constants";
 
@@ -54,12 +55,11 @@ function Header() {
           </button>
         </li>
         <li>
-          <button onClick={() => goToPage(HEADLESS_FORM_PATH)}>
-            {HEADER_LABEL.HEADLESS_FORM}
+          <button onClick={() => goToPage(TABS_PATH)}>
+            {HEADER_LABEL.TABS}
           </button>
         </li>
       </ul>
-
       <button type="button" onClick={handleDarkModeClick}>
         {isDarkMode ? "DarkMode" : "LightMode"}
       </button>
@@ -85,6 +85,7 @@ const HeaerContainer = styled.header`
     align-items: center;
     gap: 10px;
   }
+
   button {
     padding: 5px;
     border-radius: 2px;
