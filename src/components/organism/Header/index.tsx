@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { isDarkAtom } from "../../../atoms";
-import PATH from "../../constant/path";
-import NAV_LABEL from "../../constant/navLabel";
+import PATH from "../../../constant/path";
+import NAV_LABEL from "../../../constant/navLabel";
 
 const NAV_LIST = [
   { path: PATH.MAIN_PATH, label: NAV_LABEL.home },

@@ -9,7 +9,7 @@ import Root from "../Root";
 import TodoList from "../pages/TodoList";
 import HeadLess from "../pages/Headless";
 import Tabs from "../pages/Tabs";
-import PATH from "../components/constant/path";
+import PATH from "../constant/path";
 import WebPush from "../pages/WebPush";
 
 const routers = createBrowserRouter([
