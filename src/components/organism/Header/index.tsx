@@ -3,16 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { isDarkAtom } from "../../../atoms";
-import {
-  COIN_PATH,
-  DRAG_AND_DROP_PATH,
-  HEADER_LABEL,
-  HEADLESS_PATH,
-  MAIN_PATH,
-  REDUX_SAGA_PATH,
-  TABS_PATH,
-  TODO_LIST_PATH,
-} from "../../../routers/constants";
+import PATH from "../../constant/path";
+import NAV_LABEL from "../../constant/navLabel";
+
+const NAV_LIST = [
+  { path: PATH.MAIN_PATH, label: NAV_LABEL.home },
+  { path: PATH.COIN_PATH, label: NAV_LABEL.coin },
+  { path: PATH.TODO_LIST_PATH, label: NAV_LABEL.toDoList },
+  { path: PATH.WEB_PUSH_PATH, label: NAV_LABEL.webPush },
+  { path: PATH.HEADLESS_PATH, label: NAV_LABEL.headless },
+  { path: PATH.TABS_PATH, label: NAV_LABEL.tabs },
+];
 
 function Header() {
   const navigate = useNavigate();
@@ -29,37 +30,15 @@ function Header() {
   return (
     <HeaerContainer>
       <ul>
-        <li>
-          <button onClick={() => goToPage(MAIN_PATH)}>
-            {HEADER_LABEL.HOME}
-          </button>
-        </li>
-        <li>
-          <button onClick={() => goToPage(COIN_PATH)}>
-            {HEADER_LABEL.COIN}
-          </button>
-        </li>
-        <li>
-          <button onClick={() => goToPage(TODO_LIST_PATH)}>
-            {HEADER_LABEL.TODOLIST}
-          </button>
-        </li>
-        <li>
-          <button onClick={() => goToPage(DRAG_AND_DROP_PATH)}>
-            {HEADER_LABEL.DRAG}
-          </button>
-        </li>
-        <li>
-          <button onClick={() => goToPage(HEADLESS_PATH)}>
-            {HEADER_LABEL.HEADLESS}
-          </button>
-        </li>
-        <li>
-          <button onClick={() => goToPage(TABS_PATH)}>
-            {HEADER_LABEL.TABS}
-          </button>
-        </li>
+        {NAV_LIST.map((item, idx) => {
+          return (
+            <li key={idx.toString()}>
+              <button onClick={() => goToPage(item.path)}>{item.label}</button>
+            </li>
+          );
+        })}
       </ul>
+
       <button type="button" onClick={handleDarkModeClick}>
         {isDarkMode ? "DarkMode" : "LightMode"}
       </button>

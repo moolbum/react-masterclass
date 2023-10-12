@@ -7,53 +7,44 @@ import Price from "../pages/Price";
 import NotFound from "../pages/NotFound";
 import Root from "../Root";
 import TodoList from "../pages/TodoList";
-import {
-  CHART_PATH,
-  COIN_PATH,
-  DRAG_AND_DROP_PATH,
-  HEADLESS_PATH,
-  MAIN_PATH,
-  PRICE_PATH,
-  TABS_PATH,
-  TODO_LIST_PATH,
-} from "./constants";
-import DragAndDrop from "../pages/DragAndDrop";
 import HeadLess from "../pages/Headless";
 import Tabs from "../pages/Tabs";
+import PATH from "../components/constant/path";
+import WebPush from "../pages/WebPush";
 
 const routers = createBrowserRouter([
   {
-    path: MAIN_PATH,
+    path: PATH.MAIN_PATH,
     element: <Root />,
     errorElement: <NotFound />,
     children: [
       {
-        path: COIN_PATH,
+        path: PATH.COIN_PATH,
         element: <Coin />,
       },
       {
-        path: `${COIN_PATH}/:id`,
+        path: `${PATH.COIN_PATH}/:id`,
         element: <CoinDetail />,
         children: [
-          { path: CHART_PATH, element: <Chart /> },
-          { path: PRICE_PATH, element: <Price /> },
+          { path: PATH.CHART_PATH, element: <Chart /> },
+          { path: PATH.PRICE_PATH, element: <Price /> },
         ],
       },
       {
-        path: HEADLESS_PATH,
+        path: PATH.HEADLESS_PATH,
         element: <HeadLess />,
       },
       {
-        path: TODO_LIST_PATH,
+        path: PATH.TODO_LIST_PATH,
         element: <TodoList />,
       },
       {
-        path: TABS_PATH,
+        path: PATH.TABS_PATH,
         element: <Tabs />,
       },
       {
-        path: DRAG_AND_DROP_PATH,
-        element: <DragAndDrop />,
+        path: PATH.WEB_PUSH_PATH,
+        element: <WebPush />,
       },
     ],
   },
