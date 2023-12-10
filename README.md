@@ -1,8 +1,8 @@
-## ⭐️ React 코인 차트, To-Do List
+## ⭐️ React 코인 차트, To-Do List, 합성 컴포넌트 적용(모달)
 
 1. 아토믹한 폴더구조 연습 및 React-query를 이용한 코인 API Data Fatching
 2. To-Do 리스트 (Study)
-3. Redux-Saga (Study)
+3. 합성 컴포넌트 모달 (Study)
 4. Headless Componenet (Study)
 
 - React-Query 적용
